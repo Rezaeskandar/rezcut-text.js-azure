@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import fs from "fs";
-import path from "path";
 
-// Definiera en typ för bokningar
 type Booking = {
   id: number;
   name: string;
@@ -21,7 +18,6 @@ export async function POST(req: Request) {
   const body = await req.json();
   const { name, email, phone, service, date, time, message } = body;
 
-  // Skapa transporter
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
@@ -32,32 +28,20 @@ export async function POST(req: Request) {
     },
   });
 
+  const newBooking: Booking = {
+    id: Date.now(),
+    name,
+    email,
+    phone,
+    service,
+    date,
+    time,
+    message,
+    created: new Date().toISOString(),
+    handled: false,
+  };
+
   try {
-    // Spara bokning till fil
-    const bookingsPath = path.join(process.cwd(), "data", "bookings.json");
-    let bookings: Booking[] = [];
-
-    if (fs.existsSync(bookingsPath)) {
-      const data = fs.readFileSync(bookingsPath, "utf8");
-      bookings = JSON.parse(data) as Booking[];
-    }
-
-    const newBooking: Booking = {
-      id: Date.now(),
-      name,
-      email,
-      phone,
-      service,
-      date,
-      time,
-      message,
-      created: new Date().toISOString(),
-      handled: false,
-    };
-
-    bookings.push(newBooking);
-    fs.writeFileSync(bookingsPath, JSON.stringify(bookings, null, 2));
-
     // Skicka mail till salongen
     await transporter.sendMail({
       from: `"SH-Cutz" <${process.env.SMTP_USER}>`,
