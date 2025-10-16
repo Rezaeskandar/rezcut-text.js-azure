@@ -1,8 +1,9 @@
- // components/BookingForm.tsx
+// components/BookningForm.tsx
 "use client";
 
 import { useState } from "react";
-import { services as allServices } from "../lib/services";
+import { services as allServices, Service } from "../data/services";
+
 
 type FormState = {
   name: string;
@@ -56,6 +57,7 @@ export default function BookingForm({ defaultServiceId }: { defaultServiceId?: s
         });
       }
     } catch (err) {
+      console.error(err);
       setMessage({ type: "error", text: "Nätverksfel" });
     } finally {
       setLoading(false);
@@ -67,56 +69,100 @@ export default function BookingForm({ defaultServiceId }: { defaultServiceId?: s
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium mb-1">Namn</label>
-          <input value={form.name} onChange={(e)=>setForm({...form, name:e.target.value})}
-            required className="w-full border px-3 py-2 rounded" placeholder="Ditt namn" />
+          <input
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            required
+            className="w-full border px-3 py-2 rounded"
+            placeholder="Ditt namn"
+          />
         </div>
         <div>
           <label className="block text-sm font-medium mb-1">E-post</label>
-          <input value={form.email} onChange={(e)=>setForm({...form, email:e.target.value})}
-            type="email" required className="w-full border px-3 py-2 rounded" placeholder="mail@exempel.se" />
+          <input
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            type="email"
+            required
+            className="w-full border px-3 py-2 rounded"
+            placeholder="mail@exempel.se"
+          />
         </div>
 
         <div>
           <label className="block text-sm font-medium mb-1">Telefon</label>
-          <input value={form.phone} onChange={(e)=>setForm({...form, phone:e.target.value})}
-            className="w-full border px-3 py-2 rounded" placeholder="070-123 45 67" />
+          <input
+            value={form.phone}
+            onChange={(e) => setForm({ ...form, phone: e.target.value })}
+            className="w-full border px-3 py-2 rounded"
+            placeholder="070-123 45 67"
+          />
         </div>
 
         <div>
           <label className="block text-sm font-medium mb-1">Tjänst</label>
-          <select value={form.serviceId} onChange={(e)=>setForm({...form, serviceId:e.target.value})}
-            className="w-full border px-3 py-2 rounded">
-            {allServices.map(s => <option key={s.id} value={s.id}>{s.title} — {s.price} kr</option>)}
+          <select
+            value={form.serviceId}
+            onChange={(e) => setForm({ ...form, serviceId: e.target.value })}
+            className="w-full border px-3 py-2 rounded"
+          >
+            {allServices.map((s: Service) => (
+              <option key={s.id} value={s.id}>
+                {s.title} — {s.price} kr
+              </option>
+            ))}
           </select>
         </div>
 
         <div>
           <label className="block text-sm font-medium mb-1">Datum</label>
-          <input type="date" value={form.date} onChange={(e)=>setForm({...form, date:e.target.value})}
-            required className="w-full border px-3 py-2 rounded" />
+          <input
+            type="date"
+            value={form.date}
+            onChange={(e) => setForm({ ...form, date: e.target.value })}
+            required
+            className="w-full border px-3 py-2 rounded"
+          />
         </div>
 
         <div>
           <label className="block text-sm font-medium mb-1">Tid</label>
-          <input type="time" value={form.time} onChange={(e)=>setForm({...form, time:e.target.value})}
-            required className="w-full border px-3 py-2 rounded" />
+          <input
+            type="time"
+            value={form.time}
+            onChange={(e) => setForm({ ...form, time: e.target.value })}
+            required
+            className="w-full border px-3 py-2 rounded"
+          />
         </div>
 
         <div className="md:col-span-2">
           <label className="block text-sm font-medium mb-1">Notering (valfritt)</label>
-          <textarea value={form.notes} onChange={(e)=>setForm({...form, notes:e.target.value})}
-            className="w-full border px-3 py-2 rounded" rows={3} placeholder="Önskemål eller info" />
+          <textarea
+            value={form.notes}
+            onChange={(e) => setForm({ ...form, notes: e.target.value })}
+            className="w-full border px-3 py-2 rounded"
+            rows={3}
+            placeholder="Önskemål eller info"
+          />
         </div>
       </div>
 
       <div className="mt-4 flex items-center justify-between">
-        <button type="submit" disabled={loading}
-          className="bg-gold hover:opacity-90 text-white px-5 py-2 rounded">
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-gold hover:opacity-90 text-white px-5 py-2 rounded"
+        >
           {loading ? "Bokar..." : "Boka tid"}
         </button>
 
         {message && (
-          <div className={`text-sm ${message.type === "success" ? "text-green-600" : "text-red-600"}`}>
+          <div
+            className={`text-sm ${
+              message.type === "success" ? "text-green-600" : "text-red-600"
+            }`}
+          >
             {message.text}
           </div>
         )}

@@ -1,15 +1,31 @@
 "use client";
 import { useState, useEffect } from "react";
 
+// Typ för en bokning
+interface Booking {
+  id: number;
+  name: string;
+  service: string;
+  date: string;
+  time: string;
+  phone: string;
+  email: string;
+  message?: string;
+  handled: boolean;
+  created: string;
+}
+
 export default function AdminPage() {
-  const [bookings, setBookings] = useState<any[]>([]);
+  const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
+  
 
-  // Byt ut mot ditt admin-lösenord
-  const ADMIN_PASSWORD = "rezaadmin123";
+  // Ditt admin-lösenord (lägg helst i .env.local)
+const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "";
+
 
   useEffect(() => {
     if (loggedIn) {
@@ -22,12 +38,14 @@ export default function AdminPage() {
     setError("");
     try {
       const res = await fetch("/api/bookings");
-      const data = await res.json();
+      if (!res.ok) throw new Error("Nätverksfel");
+      const data: Booking[] = await res.json();
       setBookings(data);
     } catch {
       setError("Kunde inte hämta bokningar.");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   async function handleMarkHandled(id: number, handled: boolean) {
@@ -43,7 +61,7 @@ export default function AdminPage() {
     }
   }
 
-  function handleLogin(e: React.FormEvent) {
+  function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (password === ADMIN_PASSWORD) {
       setLoggedIn(true);
@@ -88,8 +106,10 @@ export default function AdminPage() {
       <header className="bg-[#1f1f1f] text-white py-6 text-center shadow-md">
         <h1 className="text-3xl font-bold text-[#b2862d]">SH-Cutz Admin</h1>
       </header>
+
       <main className="max-w-4xl mx-auto py-12 px-4">
         <h2 className="text-2xl font-bold mb-6">Bokningar</h2>
+
         {loading ? (
           <div>Laddar bokningar...</div>
         ) : bookings.length === 0 ? (
@@ -99,7 +119,9 @@ export default function AdminPage() {
             {bookings.map((b) => (
               <li
                 key={b.id}
-                className={`bg-[#232323] rounded-xl shadow p-6 flex flex-col gap-2 border-l-4 ${b.handled ? "border-green-500" : "border-[#b2862d]"}`}
+                className={`bg-[#232323] rounded-xl shadow p-6 flex flex-col gap-2 border-l-4 ${
+                  b.handled ? "border-green-500" : "border-[#b2862d]"
+                }`}
               >
                 <div className="flex justify-between items-center">
                   <span className="font-bold text-lg text-white">{b.name}</span>
@@ -126,15 +148,21 @@ export default function AdminPage() {
                     {b.message}
                   </div>
                 )}
+
                 <div className="flex gap-4 mt-2">
                   <button
-                    className={`px-4 py-2 rounded-lg font-semibold transition-all duration-200 ${b.handled ? "bg-green-500 text-white" : "bg-[#b2862d] text-white hover:bg-[#b2862d]/80"}`}
+                    className={`px-4 py-2 rounded-lg font-semibold transition-all duration-200 ${
+                      b.handled
+                        ? "bg-green-500 text-white"
+                        : "bg-[#b2862d] text-white hover:bg-[#b2862d]/80"
+                    }`}
                     onClick={() => handleMarkHandled(b.id, !b.handled)}
                   >
                     {b.handled
                       ? "Markera som ohanterad"
                       : "Markera som hanterad"}
                   </button>
+
                   <a
                     href={`mailto:${b.email}`}
                     className="px-4 py-2 rounded-lg bg-[#232323] border border-[#b2862d] text-[#b2862d] font-semibold hover:bg-[#b2862d] hover:text-white transition-all duration-200"
@@ -146,6 +174,7 @@ export default function AdminPage() {
             ))}
           </ul>
         )}
+
         {error && (
           <div className="text-red-600 text-center font-medium mt-6">
             {error}

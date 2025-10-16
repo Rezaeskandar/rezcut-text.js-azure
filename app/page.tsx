@@ -179,7 +179,7 @@ export default function HomePage() {
                 ))}
               </div>
               <p className="text-cream text-center mb-2 italic">
-                "{testimonial.review}"
+                &quot;{testimonial.review}&quot;
               </p>
               <span className="text-gold font-semibold">
                 {testimonial.name}
@@ -252,4 +252,3 @@ export default function HomePage() {
     </div>
   );
 }
-
