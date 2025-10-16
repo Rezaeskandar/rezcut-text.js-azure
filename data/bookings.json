@@ -53,5 +53,16 @@
     "time": "23:15",
     "created": "2025-10-16T18:12:26.359Z",
     "handled": false
+  },
+  {
+    "id": 1760639509796,
+    "name": "Reza Eskandari",
+    "email": "rezaeskandari.ammori@yahoo.com",
+    "phone": "0761933282",
+    "service": "Herrklippning",
+    "date": "2025-10-25",
+    "time": "23:34",
+    "created": "2025-10-16T18:31:49.796Z",
+    "handled": false
   }
 ]

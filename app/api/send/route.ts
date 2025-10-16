@@ -3,6 +3,20 @@ import nodemailer from "nodemailer";
 import fs from "fs";
 import path from "path";
 
+// Definiera en typ för bokningar
+type Booking = {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  service: string;
+  date: string;
+  time: string;
+  message?: string;
+  created: string;
+  handled: boolean;
+};
+
 export async function POST(req: Request) {
   const body = await req.json();
   const { name, email, phone, service, date, time, message } = body;
@@ -19,16 +33,16 @@ export async function POST(req: Request) {
   });
 
   try {
-    // 🔧 Spara bokning till fil (utan require)
+    // Spara bokning till fil
     const bookingsPath = path.join(process.cwd(), "data", "bookings.json");
-    let bookings: any[] = [];
+    let bookings: Booking[] = [];
 
     if (fs.existsSync(bookingsPath)) {
       const data = fs.readFileSync(bookingsPath, "utf8");
-      bookings = JSON.parse(data);
+      bookings = JSON.parse(data) as Booking[];
     }
 
-    const newBooking = {
+    const newBooking: Booking = {
       id: Date.now(),
       name,
       email,
@@ -44,15 +58,15 @@ export async function POST(req: Request) {
     bookings.push(newBooking);
     fs.writeFileSync(bookingsPath, JSON.stringify(bookings, null, 2));
 
-    // ✉️ Skicka till salongen
+    // Skicka mail till salongen
     await transporter.sendMail({
       from: `"SH-Cutz" <${process.env.SMTP_USER}>`,
-      to: "rezaeskandari.ammori@yahoo.com", // din mailadress
+      to: "rezaeskandari.ammori@yahoo.com",
       subject: `Ny bokning från ${name}`,
       text: `Ny bokning via hemsidan:\n\nNamn: ${name}\nE-post: ${email}\nTelefon: ${phone}\nTjänst: ${service}\nDatum: ${date}\nTid: ${time}${message ? `\nMeddelande: ${message}` : ""}`,
     });
 
-    // ✉️ Skicka bekräftelse till kund
+    // Skicka bekräftelse till kund
     await transporter.sendMail({
       from: `"SH-Cutz" <${process.env.SMTP_USER}>`,
       to: email,
