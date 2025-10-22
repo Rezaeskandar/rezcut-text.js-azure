@@ -195,7 +195,7 @@ export default function ContactPage() {
       <section className="bg-gray-100 dark:bg-[#1f1f1f] py-12 mt-8">
         <div className="max-w-3xl mx-auto text-center px-4">
           <h3 className="text-2xl font-bold text-yellow-600 dark:text-gold mb-4">
-            Besök oss på plats och upplev Noori's Barber-skillnaden.
+            Besök oss på plats och upplev Noori&apos;s Barber-skillnaden.
           </h3>
           <Link
             href="https://www.google.com/maps/place/Åsögatan+92,+118+29+Stockholm"

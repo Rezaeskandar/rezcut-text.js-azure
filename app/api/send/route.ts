@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import fs from "fs/promises";
+import path from "path";
 
 type Booking = {
   id: number;
@@ -13,6 +15,9 @@ type Booking = {
   created: string;
   handled: boolean;
 };
+
+// Sökväg till JSON-filen med bokningar
+const bookingsPath = path.join(process.cwd(), "data", "bookings.json");
 
 export async function POST(req: Request) {
   const body = await req.json();
@@ -42,6 +47,19 @@ export async function POST(req: Request) {
   };
 
   try {
+    // 1. Läs befintliga bokningar
+    let bookings: Booking[] = [];
+    try {
+      const fileContent = await fs.readFile(bookingsPath, "utf8");
+      bookings = JSON.parse(fileContent);
+    } catch (readError) {
+      // Filen finns inte, fortsätt med en tom lista
+    }
+
+    // 2. Lägg till den nya bokningen och spara
+    bookings.push(newBooking);
+    await fs.writeFile(bookingsPath, JSON.stringify(bookings, null, 2));
+
     // Skicka mail till salongen
     await transporter.sendMail({
       from: `"Noori's Barber" <${process.env.SMTP_USER}>`,

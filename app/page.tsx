@@ -33,7 +33,7 @@ export default function HomePage() {
         />
         <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center text-center px-4">
           <h1 className="text-5xl md:text-6xl font-bold text-[var(--gold)] mb-4 drop-shadow-lg">
-            Noori's Barber
+            Noori&apos;s Barber
           </h1>
           <p className="text-lg md:text-2xl text-[var(--cream)] mb-8 font-light">
             Professionell barbershop där varje klippning är ett hantverk.
@@ -56,10 +56,10 @@ export default function HomePage() {
       {/* About Section */}
       <section className="max-w-3xl mx-auto py-16 px-4 text-center transition-colors duration-300">
         <h2 className="text-3xl font-bold text-yellow-600 dark:text-gold mb-4">
-          Om Noori's Barber
+          Om Noori&apos;s Barber
         </h2>
         <p className="text-lg text-gray-700 dark:text-white mb-2">
-          Noori's Barber är där klassiskt hantverk möter modern stil. Våra
+          Noori&apos;s Barber är där klassiskt hantverk möter modern stil. Våra
           barberare brinner för precision, kvalitet och att få varje kund att se
           sitt bästa ut. Upplev en lyxig, välkomnande atmosfär med omsorg för
           varje detalj.

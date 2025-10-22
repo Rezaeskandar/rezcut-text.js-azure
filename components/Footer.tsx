@@ -60,7 +60,7 @@ export default function Footer() {
       </div>
 
       <div className="mt-8 text-center text-gray-300 text-sm">
-        &copy; {new Date().getFullYear()} Noori's Barber. Alla rättigheter
+        &copy; {new Date().getFullYear()} Noori&apos;s Barber. Alla rättigheter
         förbehållna.
       </div>
     </footer>

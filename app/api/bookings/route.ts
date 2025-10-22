@@ -26,7 +26,7 @@ export async function GET() {
       ? JSON.parse(fs.readFileSync(bookingsPath, "utf8"))
       : [];
     return NextResponse.json(bookings);
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Kunde inte läsa bokningar" },
       { status: 500 }
@@ -51,7 +51,7 @@ export async function PATCH(req: Request) {
     fs.writeFileSync(bookingsPath, JSON.stringify(bookings, null, 2));
 
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Kunde inte uppdatera bokning" },
       { status: 500 }
