@@ -4,17 +4,55 @@ import Link from "next/link";
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [loading, setLoading] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
     setForm({ ...form, [e.target.name]: e.target.value });
+    setSubmitMessage(null); // Rensa meddelande när användaren börjar skriva igen
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    alert("Tack för ditt meddelande!");
-    setForm({ name: "", email: "", message: "" });
+    setLoading(true);
+    setSubmitMessage(null); // Rensa tidigare meddelanden
+
+    try {
+      const res = await fetch("/api/contact", {
+        // Anropa den nya API-endpointen
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setSubmitMessage({
+          type: "success",
+          text: "Tack för ditt meddelande! Vi återkommer så snart som möjligt.",
+        });
+        setForm({ name: "", email: "", message: "" }); // Rensa formuläret vid lyckad sändning
+      } else {
+        setSubmitMessage({
+          type: "error",
+          text: data.error || "Kunde inte skicka meddelandet. Försök igen.",
+        });
+      }
+    } catch (error) {
+      console.error("Fel vid sändning av kontaktformulär:", error);
+      setSubmitMessage({
+        type: "error",
+        text: "Något gick fel. Kontrollera din internetanslutning och försök igen.",
+      });
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -39,12 +77,12 @@ export default function ContactPage() {
           <ul className="space-y-4 text-gray-700 text-lg">
             <li>
               <span className="mr-2">📍</span>{" "}
-              <span className="font-semibold">Adress:</span> Storgatan 12, 111
-              22 Stockholm
+              <span className="font-semibold">Adress:</span> Åsögatan 92
+              Södermalm
             </li>
             <li>
               <span className="mr-2">📞</span>{" "}
-              <span className="font-semibold">Telefon:</span> 070-123 45 67
+              <span className="font-semibold">Telefon:</span> 0721926849
             </li>
             <li>
               <span className="mr-2">📧</span>{" "}
@@ -57,10 +95,7 @@ export default function ContactPage() {
             </h3>
             <ul className="space-y-1 text-gray-700">
               <li>
-                <span className="mr-2">⏰</span> Mån–Fre: 10:00–19:00
-              </li>
-              <li>
-                <span className="mr-2">⏰</span> Lör: 10:00–17:00
+                <span className="mr-2">⏰</span> Mån–Lör: 10:00–20:00
               </li>
               <li>
                 <span className="mr-2">⏰</span> Sön: Stängt
@@ -124,10 +159,22 @@ export default function ContactPage() {
           </div>
           <button
             type="submit"
+            disabled={loading} // Inaktivera knappen under sändning
             className="bg-[#b2862d] text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-[#b2862d]/80 transition-all duration-200"
           >
-            Skicka Meddelande
+            {loading ? "Skickar..." : "Skicka Meddelande"}
           </button>
+          {submitMessage && (
+            <div
+              className={`text-center font-medium mt-4 ${
+                submitMessage.type === "success"
+                  ? "text-green-600"
+                  : "text-red-600"
+              }`}
+            >
+              {submitMessage.text}
+            </div>
+          )}
         </form>
       </section>
 

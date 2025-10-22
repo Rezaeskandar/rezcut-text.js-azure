@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import Link from "next/link";
 
@@ -117,32 +116,32 @@ export default function HomePage() {
         </div>
       </section>
 
-   {/* Portfolio / Gallery Section */}
-<section className="max-w-5xl mx-auto py-16 px-4">
-  <h2 className="text-3xl font-bold text-gold mb-8 text-center">
-    Gallery
-  </h2>
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-    {[1, 2, 3, 4, 5, 6].map((num) => (
-      <div
-        key={num}
-        className="overflow-hidden rounded-xl shadow-lg group"
-      >
-        <Image
-          src={`/n-${num}.jpg`}
-          alt={`Client style ${num}`}
-          width={400}
-          height={300}
-          className="w-full h-auto object-cover group-hover:scale-105 group-hover:brightness-90 transition-transform duration-300"
-        />
-      </div>
-    ))}
-  </div>
-</section>
+      {/* Portfolio / Gallery Section */}
+      <section className="max-w-5xl mx-auto py-16 px-4">
+        <h2 className="text-3xl font-bold text-gold mb-8 text-center">
+          Gallery
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {[1, 2, 3, 4, 5, 6].map((num) => (
+            <div
+              key={num}
+              className="overflow-hidden rounded-xl shadow-lg group"
+            >
+              <Image
+                src={`/n-${num}.jpg`}
+                alt={`Client style ${num}`}
+                width={400}
+                height={300}
+                className="w-full h-auto object-cover group-hover:scale-105 group-hover:brightness-90 transition-transform duration-300"
+              />
+            </div>
+          ))}
+        </div>
+      </section>
       {/* Testimonials Section */}
       <section className="max-w-4xl mx-auto py-16 px-4">
         <h2 className="text-3xl font-bold text-gold mb-8 text-center">
-        Vad Våra Kunder Säger        
+          Vad Våra Kunder Säger
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
@@ -198,12 +197,32 @@ export default function HomePage() {
         </h2>
         <Link href="/boking">
           <button className="bg-gold text-charcoal font-semibold px-8 py-3 rounded-lg shadow hover:bg-yellow-600 transition">
-           Boka Nu
+            Boka Nu
           </button>
         </Link>
       </section>
 
-      
+      {/* Map Section */}
+      <section className="py-16 px-4">
+        <div className="max-w-5xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-gold mb-8">Hitta till oss</h2>
+          <div className="overflow-hidden rounded-xl shadow-lg border-2 border-gold">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2035.840277688065!2d18.07380137704258!3d59.31550397464879!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465f77e4a3a3b2e9%3A0x6e3dcf228a30997!2zw4Vzw7ZnYXRhbiA5MiwgMTE4IDI5IFN0b2NraG9sbQ!5e0!3m2!1ssv!2sse!4v1716386954497!5m2!1ssv!2sse"
+              width="100%"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen={true}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Karta som visar platsen för SH-Cutz"
+            ></iframe>
+          </div>
+          <p className="text-cream mt-4 text-lg">
+            Åsögatan 92, Södermalm, Stockholm
+          </p>
+        </div>
+      </section>
     </div>
   );
 }
