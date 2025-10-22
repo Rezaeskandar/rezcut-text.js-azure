@@ -21,11 +21,9 @@ export default function AdminPage() {
   const [error, setError] = useState("");
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
-  
 
   // Ditt admin-lösenord (lägg helst i .env.local)
-const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "";
-
+  const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "";
 
   useEffect(() => {
     if (loggedIn) {

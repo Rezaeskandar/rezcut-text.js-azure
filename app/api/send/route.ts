@@ -79,6 +79,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Nodemailer error:", error);
-    return NextResponse.json({ success: false, error });
+    // Skicka ett enkelt textmeddelande istället för hela fel-objektet
+    return NextResponse.json(
+      {
+        success: false,
+        error: "Ett serverfel inträffade. Bokningen kunde inte slutföras.",
+      },
+      { status: 500 }
+    );
   }
 }

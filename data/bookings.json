@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1761175315740,
+    "name": "Reza Eskandari",
+    "email": "rezaeskandari.ammori@yahoo.com",
+    "phone": "0761933282",
+    "service": "Maskinklippning",
+    "date": "2025-10-24",
+    "time": "16:00",
+    "message": "hej",
+    "created": "2025-10-22T23:21:55.740Z",
+    "handled": false
+  },
+  {
+    "id": 1761177435362,
+    "name": "Reza Eskandari",
+    "email": "rezaeskandari.ammori@yahoo.com",
+    "phone": "0761933282",
+    "service": "Maskinklippning",
+    "date": "2025-10-24",
+    "time": "15:30",
+    "message": "ggg",
+    "created": "2025-10-22T23:57:15.362Z",
+    "handled": false
+  }
+]
