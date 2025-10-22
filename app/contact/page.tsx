@@ -82,11 +82,12 @@ export default function ContactPage() {
             </li>
             <li>
               <span className="mr-2">📞</span>{" "}
-              <span className="font-semibold">Telefon:</span> 0721926849
+              <span className="font-semibold">Telefon:</span> 0708659138
             </li>
             <li>
               <span className="mr-2">📧</span>{" "}
-              <span className="font-semibold">E-post:</span> info@sh-cutz.se
+              <span className="font-semibold">E-post:</span>{" "}
+              info@noorisbarber.se
             </li>
           </ul>
           <div className="mt-8">
@@ -95,7 +96,10 @@ export default function ContactPage() {
             </h3>
             <ul className="space-y-1 text-gray-700 dark:text-gray-300">
               <li>
-                <span className="mr-2">⏰</span> Mån–Lör: 10:00–20:00
+                <span className="mr-2">⏰</span> Mån–Fre: 10:00–20:00
+              </li>
+              <li>
+                <span className="mr-2">⏰</span> Lör: 10:00–15:00
               </li>
               <li>
                 <span className="mr-2">⏰</span> Sön: Stängt
@@ -191,15 +195,15 @@ export default function ContactPage() {
       <section className="bg-gray-100 dark:bg-[#1f1f1f] py-12 mt-8">
         <div className="max-w-3xl mx-auto text-center px-4">
           <h3 className="text-2xl font-bold text-yellow-600 dark:text-gold mb-4">
-            Besök oss på plats och upplev SH-Cutz skillnaden.
+            Besök oss på plats och upplev Noori's Barber-skillnaden.
           </h3>
           <Link
-            href="https://goo.gl/maps/your-google-maps-link"
+            href="https://www.google.com/maps/place/Åsögatan+92,+118+29+Stockholm"
             target="_blank"
             rel="noopener noreferrer"
           >
             <button className="bg-yellow-500 dark:bg-gold text-gray-900 dark:text-charcoal px-6 py-3 rounded-lg font-semibold shadow hover:bg-yellow-600 transition-all duration-200">
-              Visa på Google Maps
+              Hitta hit
             </button>
           </Link>
         </div>

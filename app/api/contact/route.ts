@@ -27,7 +27,7 @@ export async function POST(req: Request) {
   try {
     // Skicka mail till salongen med kontaktmeddelandet
     await transporter.sendMail({
-      from: `"SH-Cutz Kontakt" <${process.env.SMTP_USER}>`,
+      from: `"Noori's Barber Kontakt" <${process.env.SMTP_USER}>`,
       to: "rezaeskandari.ammori@yahoo.com", // Salongens e-postadress dit meddelanden ska skickas
       subject: `Nytt meddelande från ${name} via hemsidan`,
       text: `Nytt meddelande via kontaktformuläret:\n\nNamn: ${name}\nE-post: ${email}\nMeddelande: ${message}`,
@@ -39,14 +39,14 @@ export async function POST(req: Request) {
 
     // Skicka bekräftelse till avsändaren (kunden)
     await transporter.sendMail({
-      from: `"SH-Cutz" <${process.env.SMTP_USER}>`,
+      from: `"Noori's Barber" <${process.env.SMTP_USER}>`,
       to: email,
-      subject: "Tack för ditt meddelande till SH-Cutz!",
-      text: `Hej ${name}!\n\nTack för att du kontaktade SH-Cutz.\nVi har mottagit ditt meddelande och återkommer så snart som möjligt.\n\nVänliga hälsningar,\nSH-Cutz Barbershop`,
+      subject: "Tack för ditt meddelande till Noori's Barber!",
+      text: `Hej ${name}!\n\nTack för att du kontaktade Noori's Barber.\nVi har mottagit ditt meddelande och återkommer så snart som möjligt.\n\nVänliga hälsningar,\nNoori's Barber`,
       html: `<p>Hej ${name}!</p>
-             <p>Tack för att du kontaktade SH-Cutz.</p>
+             <p>Tack för att du kontaktade Noori's Barber.</p>
              <p>Vi har mottagit ditt meddelande och återkommer så snart som möjligt.</p>
-             <p>Vänliga hälsningar,<br/>SH-Cutz Barbershop</p>`,
+             <p>Vänliga hälsningar,<br/>Noori's Barber</p>`,
     });
 
     return NextResponse.json({ success: true });

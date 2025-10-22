@@ -37,12 +37,11 @@ export default function Navbar() {
           </span> */}
           <Image
             src="/logo.png"
-            alt="SH-Cutz Logo"
+            alt="Noori's Barber Logo"
             width={48}
             height={48}
             className="transition-transform duration-200 hover:scale-105"
           />
-        
         </Link>
 
         {/* Desktop Menu */}

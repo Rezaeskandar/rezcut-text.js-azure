@@ -39,10 +39,10 @@ export default function BookingPage() {
       {/* CTA Section */}
       <section className="bg-gray-100 dark:bg-[#1f1f1f] text-center py-12">
         <h2 className="text-3xl font-bold text-yellow-600 dark:text-[#b2862d] mb-4">
-          Redo för en ny look?
+          Redo för en ny stil?
         </h2>
         <p className="mb-6 text-gray-700 dark:text-white">
-          Vi ser fram emot att välkomna dig till SH-Cutz.
+          Vi ser fram emot att välkomna dig till Noori's Barber.
         </p>
         <Link href="/services">
           <button className="bg-yellow-500 dark:bg-[#b2862d] text-gray-900 dark:text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-yellow-600 dark:hover:bg-[#b2862d]/80 transition-all duration-200 hover:scale-105">

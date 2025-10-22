@@ -46,20 +46,22 @@ export default function Footer() {
         <div>
           <h3 className="text-gold font-bold mb-4">Kontakt</h3>
           <p>Åsögatan 92 Södermalm</p>
-          <p>0721926849</p>
-          <p>info@sh-cutz.se</p>
+          <p>0708659138</p>
+          <p>info@noorisbarber.se</p>
         </div>
 
         {/* Opening Hours */}
         <div>
           <h3 className="text-gold font-bold mb-4">Öppettider</h3>
-          <p>Mån–Lör: 10:00–20:00</p>
+          <p>Mån–Fre: 10:00–20:00</p>
+          <p>Lör: 10:00–15:00</p>
           <p>Sön: Stängt</p>
         </div>
       </div>
 
       <div className="mt-8 text-center text-gray-300 text-sm">
-        &copy; {new Date().getFullYear()} SH-Cutz. Alla rättigheter förbehållna.
+        &copy; {new Date().getFullYear()} Noori's Barber. Alla rättigheter
+        förbehållna.
       </div>
     </footer>
   );

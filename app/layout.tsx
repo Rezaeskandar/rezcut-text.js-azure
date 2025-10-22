@@ -40,8 +40,8 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export const metadata = {
-  title: "SH-Cutz Barbershop",
-  description: "Boka din tid hos SH-Cutz – Hantverk. Stil. SH-Cutz.",
+  title: "Noori's Barber",
+  description: "Boka din tid hos Noori's Barber – Hantverk. Stil. Kvalitet.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

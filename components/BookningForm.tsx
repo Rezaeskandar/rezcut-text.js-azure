@@ -24,7 +24,6 @@ const generateTimeSlots = (date: Date | undefined) => {
 
   const {
     startTime,
-    endTime,
     slotDurationMinutes,
     workingDays,
     breakTimes = [],
@@ -32,10 +31,18 @@ const generateTimeSlots = (date: Date | undefined) => {
   const slots = [];
   const now = new Date();
   const isToday = format(date, "yyyy-MM-dd") === format(now, "yyyy-MM-dd");
+  const dayOfWeek = date.getDay(); // 0=Söndag, 6=Lördag
 
   // Check if the selected day is a working day
-  if (!workingDays.includes(date.getDay())) {
+  if (!workingDays.includes(dayOfWeek)) {
     return [];
+  }
+
+  // Sätt en specifik sluttid för lördagar
+  let endTime = availability.endTime;
+  if (dayOfWeek === 6) {
+    // 6 är lördag
+    endTime = "15:00";
   }
 
   let currentSlotStart = setMinutes(setHours(date, 0), 0); // Start from beginning of selected day

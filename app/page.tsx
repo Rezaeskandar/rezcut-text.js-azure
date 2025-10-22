@@ -1,34 +1,52 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
+import { services, Service } from "../data/services";
+import { useState } from "react";
+
+// Gruppera tjänster efter kategori
+const groupedServices = services.reduce(
+  (acc, service) => {
+    (acc[service.category] = acc[service.category] || []).push(service);
+    return acc;
+  },
+  {} as Record<string, Service[]>
+);
 
 export default function HomePage() {
+  const [openCategory, setOpenCategory] = useState<string | null>(null);
+
+  const toggleCategory = (category: string) => {
+    setOpenCategory(openCategory === category ? null : category);
+  };
+
   return (
     <div className="bg-[var(--background)] text-[var(--foreground)] font-sans min-h-screen">
       {/* Hero Section */}
       <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
         <Image
           src="/images/barbershop-hero.jpg"
-          alt="SH-Cutz Barbershop Interior"
+          alt="Noori's Barber Interior"
           fill
           priority
           className="object-cover object-center brightness-75"
         />
         <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center text-center px-4">
           <h1 className="text-5xl md:text-6xl font-bold text-[var(--gold)] mb-4 drop-shadow-lg">
-            Craft. Style. SH-Cutz.
+            Noori's Barber
           </h1>
           <p className="text-lg md:text-2xl text-[var(--cream)] mb-8 font-light">
-            Professional barbershop where every cut is a craft.
+            Professionell barbershop där varje klippning är ett hantverk.
           </p>
           <div className="flex flex-col md:flex-row gap-4">
             <Link href="/boking">
               <button className="bg-[var(--gold)] text-[var(--charcoal)] font-semibold px-8 py-3 rounded-lg shadow hover:bg-yellow-600 transition">
-                Book Now
+                Boka Nu
               </button>
             </Link>
             <Link href="/services">
               <button className="border border-[var(--gold)] text-[var(--gold)] px-8 py-3 rounded-lg shadow hover:bg-[var(--gold)] hover:text-[var(--charcoal)] transition bg-transparent">
-                View Services
+                Se Tjänster
               </button>
             </Link>
           </div>
@@ -38,94 +56,77 @@ export default function HomePage() {
       {/* About Section */}
       <section className="max-w-3xl mx-auto py-16 px-4 text-center transition-colors duration-300">
         <h2 className="text-3xl font-bold text-yellow-600 dark:text-gold mb-4">
-          About SH-Cutz
+          Om Noori's Barber
         </h2>
         <p className="text-lg text-gray-700 dark:text-white mb-2">
-          SH-Cutz is where classic craftsmanship meets modern style. Our barbers
-          are passionate about precision, quality, and making every client look
-          their best. Experience a luxurious, welcoming atmosphere with
-          attention to every detail.
+          Noori's Barber är där klassiskt hantverk möter modern stil. Våra
+          barberare brinner för precision, kvalitet och att få varje kund att se
+          sitt bästa ut. Upplev en lyxig, välkomnande atmosfär med omsorg för
+          varje detalj.
         </p>
       </section>
 
       {/* Services Section */}
       <section className="max-w-5xl mx-auto py-16 px-4">
         <h2 className="text-3xl font-bold text-yellow-600 dark:text-gold mb-8 text-center">
-          Our Services
+          Våra Tjänster
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Service Card Example */}
-          <div className="bg-white dark:bg-[#232323] rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition">
-            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mt-4 mb-2">
-              Haircut
-            </h3>
-            <p className="text-gray-700 dark:text-white mb-2">
-              450 kr · 45 min
-            </p>
-            <p className="text-sm text-gray-500 dark:text-white flex-grow">
-              Classic & modern cuts tailored to you.
-            </p>
-            <Link href="/boking?service=1" className="mt-4">
-              <button className="bg-yellow-500 dark:bg-gold text-gray-900 dark:text-charcoal font-semibold px-5 py-2 rounded-lg shadow hover:bg-yellow-600 transition-all text-sm">
-                Boka
-              </button>
-            </Link>
-          </div>
-          <div className="bg-white dark:bg-[#232323] rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition">
-            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mt-4 mb-2">
-              Beard Trim
-            </h3>
-            <p className="text-gray-700 dark:text-white mb-2">
-              300 kr · 30 min
-            </p>
-            <p className="text-sm text-gray-500 dark:text-white flex-grow">
-              Sharp lines, perfect shape, expert grooming.
-            </p>
-            <Link href="/boking?service=2" className="mt-4">
-              <button className="bg-yellow-500 dark:bg-gold text-gray-900 dark:text-charcoal font-semibold px-5 py-2 rounded-lg shadow hover:bg-yellow-600 transition-all text-sm">
-                Boka
-              </button>
-            </Link>
-          </div>
-          <div className="bg-white dark:bg-[#232323] rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition">
-            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mt-4 mb-2">
-              Combo
-            </h3>
-            <p className="text-gray-700 dark:text-white mb-2">
-              650 kr · 60 min
-            </p>
-            <p className="text-sm text-gray-500 dark:text-white flex-grow">
-              Haircut & beard trim for a complete look.
-            </p>
-            <Link href="/boking?service=3" className="mt-4">
-              <button className="bg-yellow-500 dark:bg-gold text-gray-900 dark:text-charcoal font-semibold px-5 py-2 rounded-lg shadow hover:bg-yellow-600 transition-all text-sm">
-                Boka
-              </button>
-            </Link>
-          </div>
-          <div className="bg-white dark:bg-[#232323] rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition">
-            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mt-4 mb-2">
-              Kids Cut
-            </h3>
-            <p className="text-gray-700 dark:text-white mb-2">
-              250 kr · 25 min
-            </p>
-            <p className="text-sm text-gray-500 dark:text-white flex-grow">
-              Fun, stylish cuts for the young ones.
-            </p>
-            <Link href="/boking" className="mt-4">
-              <button className="bg-yellow-500 dark:bg-gold text-gray-900 dark:text-charcoal font-semibold px-5 py-2 rounded-lg shadow hover:bg-yellow-600 transition-all text-sm">
-                Boka
-              </button>
-            </Link>
-          </div>
+        <div className="space-y-8">
+          {Object.entries(groupedServices).map(
+            ([category, servicesInCategory]) => (
+              <div
+                key={category}
+                className="border-b-2 border-gray-200 dark:border-gray-700 last:border-b-0 pb-8"
+              >
+                <button
+                  onClick={() => toggleCategory(category)}
+                  className="w-full flex justify-between items-center text-left"
+                >
+                  <h3 className="text-2xl font-bold text-yellow-600 dark:text-gold">
+                    {category}
+                  </h3>
+                  <span className="text-3xl text-yellow-600 dark:text-gold transform transition-transform duration-300">
+                    {openCategory === category ? "−" : "+"}
+                  </span>
+                </button>
+                {openCategory === category && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+                    {servicesInCategory.map((service: Service) => (
+                      <div
+                        key={service.id}
+                        className="bg-white dark:bg-[#232323] rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition"
+                      >
+                        <h4 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
+                          {service.title}
+                        </h4>
+                        <p className="text-gray-700 dark:text-white mb-2">
+                          {service.price} kr · {service.duration} min
+                        </p>
+                        <p className="text-sm text-gray-500 dark:text-white flex-grow">
+                          {service.description}
+                        </p>
+                        <Link
+                          href={`/boking?service=${service.id}`}
+                          className="mt-4"
+                        >
+                          <button className="bg-yellow-500 dark:bg-gold text-gray-900 dark:text-charcoal font-semibold px-5 py-2 rounded-lg shadow hover:bg-yellow-600 transition-all text-sm">
+                            Boka
+                          </button>
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )
+          )}
         </div>
       </section>
 
       {/* Portfolio / Gallery Section */}
       <section className="max-w-5xl mx-auto py-16 px-4">
         <h2 className="text-3xl font-bold text-yellow-600 dark:text-gold mb-8 text-center">
-          Gallery
+          Galleri
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {[1, 2, 3, 4, 5, 6].map((num) => (
@@ -199,11 +200,11 @@ export default function HomePage() {
       {/* Call to Action */}
       <section className="py-16 px-4 flex flex-col items-center bg-gray-100 dark:bg-[#232323]">
         <h2 className="text-2xl md:text-3xl font-bold text-yellow-600 dark:text-gold mb-4 text-center">
-          Redo att boka?
+          Redo att boka tid?
         </h2>
         <Link href="/boking">
           <button className="bg-yellow-500 dark:bg-gold text-gray-900 dark:text-charcoal font-semibold px-8 py-3 rounded-lg shadow hover:bg-yellow-600 transition">
-            Boka Nu
+            Boka nu
           </button>
         </Link>
       </section>
@@ -223,7 +224,7 @@ export default function HomePage() {
               allowFullScreen={true}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Karta som visar platsen för SH-Cutz"
+              title="Karta som visar platsen för Noori's Barber"
             ></iframe>
           </div>
           <p className="text-gray-700 dark:text-white mt-4 text-lg">
