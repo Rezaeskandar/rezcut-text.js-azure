@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { services as allServices, Service } from "../data/services";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css"; // Import the default styles
-import { format, isBefore, startOfToday, setHours, setMinutes } from "date-fns";
+import { format, startOfToday, setHours, setMinutes } from "date-fns";
 import { sv } from "date-fns/locale"; // For Swedish locale in calendar
 import { availability } from "../data/availability"; // Import availability data
 

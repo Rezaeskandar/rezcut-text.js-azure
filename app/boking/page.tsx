@@ -1,12 +1,17 @@
 "use client";
+import { Suspense } from "react";
 import Link from "next/link";
 import BookingForm from "../../components/BookningForm"; // Import the new component
 import { useSearchParams } from "next/navigation";
 
-export default function BookingPage() {
+// Skapa en ny komponent för att isolera useSearchParams
+function BookingComponent() {
   const searchParams = useSearchParams();
   const serviceId = searchParams.get("service");
+  return <BookingForm defaultServiceId={serviceId || undefined} />;
+}
 
+export default function BookingPage() {
   return (
     <div className="min-h-screen font-sans">
       {/* Hero Section */}
@@ -22,7 +27,13 @@ export default function BookingPage() {
 
       {/* Booking Form */}
       <section className="max-w-6xl mx-auto px-4 py-12">
-        <BookingForm defaultServiceId={serviceId || undefined} />
+        <Suspense
+          fallback={
+            <div className="text-center p-8">Laddar bokningsformulär...</div>
+          }
+        >
+          <BookingComponent />
+        </Suspense>
       </section>
 
       {/* CTA Section */}
