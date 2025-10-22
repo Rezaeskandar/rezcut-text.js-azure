@@ -56,25 +56,25 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="bg-[#f9f9f9] min-h-screen font-sans">
+    <div className="min-h-screen font-sans">
       {/* Hero Section */}
-      <section className="py-16 text-center bg-white">
-        <h1 className="text-4xl md:text-5xl font-bold text-[#1f1f1f] mb-4 tracking-tight">
+      <section className="py-16 text-center bg-gray-100 dark:bg-[#1f1f1f]">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
           Kontakta Oss
         </h1>
-        <p className="text-lg md:text-xl text-[#b2862d] font-medium mb-2">
+        <p className="text-lg md:text-xl text-yellow-600 dark:text-gold font-medium mb-2">
           Har du frågor eller vill boka tid? Hör av dig till oss!
         </p>
       </section>
 
       {/* Main Contact Section */}
-      <section className="max-w-6xl mx-auto py-16 px-4 flex flex-col md:flex-row gap-8">
+      <section className="max-w-6xl mx-auto py-16 px-4 grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Kontaktinfo */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 flex-1 mb-8 md:mb-0">
-          <h2 className="text-2xl font-bold text-[#b2862d] mb-6">
+        <div className="bg-white dark:bg-[#232323] rounded-2xl shadow-lg p-8">
+          <h2 className="text-2xl font-bold text-yellow-600 dark:text-gold mb-6">
             Kontaktinformation
           </h2>
-          <ul className="space-y-4 text-gray-700 text-lg">
+          <ul className="space-y-4 text-gray-700 dark:text-gray-300 text-lg">
             <li>
               <span className="mr-2">📍</span>{" "}
               <span className="font-semibold">Adress:</span> Åsögatan 92
@@ -90,10 +90,10 @@ export default function ContactPage() {
             </li>
           </ul>
           <div className="mt-8">
-            <h3 className="text-lg font-bold text-[#b2862d] mb-2">
+            <h3 className="text-lg font-bold text-yellow-600 dark:text-gold mb-2">
               Öppettider
             </h3>
-            <ul className="space-y-1 text-gray-700">
+            <ul className="space-y-1 text-gray-700 dark:text-gray-300">
               <li>
                 <span className="mr-2">⏰</span> Mån–Lör: 10:00–20:00
               </li>
@@ -106,14 +106,17 @@ export default function ContactPage() {
 
         {/* Kontaktformulär */}
         <form
-          className="bg-white rounded-xl shadow-lg p-8 flex-1 max-w-md mx-auto flex flex-col gap-6"
+          className="bg-white dark:bg-[#232323] rounded-xl shadow-lg p-8 flex flex-col gap-6"
           onSubmit={handleSubmit}
         >
-          <h2 className="text-2xl font-bold text-[#b2862d] mb-2">
+          <h2 className="text-2xl font-bold text-yellow-600 dark:text-gold mb-2">
             Skicka Meddelande
           </h2>
           <div className="flex flex-col gap-2">
-            <label htmlFor="name" className="font-medium text-gray-700">
+            <label
+              htmlFor="name"
+              className="font-medium text-gray-700 dark:text-gray-300"
+            >
               Namn
             </label>
             <input
@@ -123,12 +126,15 @@ export default function ContactPage() {
               value={form.name}
               onChange={handleChange}
               required
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#b2862d] transition-all duration-200"
+              className="w-full border border-gray-300 dark:border-gold bg-gray-50 dark:bg-[#1f1f1f] text-gray-800 dark:text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:focus:ring-gold placeholder:text-gray-400"
               placeholder="Ditt namn"
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="email" className="font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="font-medium text-gray-700 dark:text-gray-300"
+            >
               E-post
             </label>
             <input
@@ -138,12 +144,15 @@ export default function ContactPage() {
               value={form.email}
               onChange={handleChange}
               required
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#b2862d] transition-all duration-200"
+              className="w-full border border-gray-300 dark:border-gold bg-gray-50 dark:bg-[#1f1f1f] text-gray-800 dark:text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:focus:ring-gold placeholder:text-gray-400"
               placeholder="Din e-postadress"
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="message" className="font-medium text-gray-700">
+            <label
+              htmlFor="message"
+              className="font-medium text-gray-700 dark:text-gray-300"
+            >
               Meddelande
             </label>
             <textarea
@@ -153,14 +162,14 @@ export default function ContactPage() {
               onChange={handleChange}
               required
               rows={5}
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#b2862d] transition-all duration-200"
+              className="w-full border border-gray-300 dark:border-gold bg-gray-50 dark:bg-[#1f1f1f] text-gray-800 dark:text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:focus:ring-gold placeholder:text-gray-400"
               placeholder="Skriv ditt meddelande här..."
             />
           </div>
           <button
             type="submit"
             disabled={loading} // Inaktivera knappen under sändning
-            className="bg-[#b2862d] text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-[#b2862d]/80 transition-all duration-200"
+            className="bg-yellow-500 dark:bg-gold text-gray-900 dark:text-charcoal font-semibold px-8 py-3 rounded-lg shadow hover:bg-yellow-600 transition disabled:bg-gray-400 dark:disabled:bg-gray-500 disabled:cursor-not-allowed"
           >
             {loading ? "Skickar..." : "Skicka Meddelande"}
           </button>
@@ -168,8 +177,8 @@ export default function ContactPage() {
             <div
               className={`text-center font-medium mt-4 ${
                 submitMessage.type === "success"
-                  ? "text-green-600"
-                  : "text-red-600"
+                  ? "text-green-600 dark:text-green-400"
+                  : "text-red-600 dark:text-red-500"
               }`}
             >
               {submitMessage.text}
@@ -179,17 +188,17 @@ export default function ContactPage() {
       </section>
 
       {/* CTA / Karta Sektion */}
-      <section className="bg-[#1f1f1f] text-white py-12 mt-8">
+      <section className="bg-gray-100 dark:bg-[#1f1f1f] py-12 mt-8">
         <div className="max-w-3xl mx-auto text-center px-4">
-          <h3 className="text-2xl font-bold text-[#b2862d] mb-4">
+          <h3 className="text-2xl font-bold text-yellow-600 dark:text-gold mb-4">
             Besök oss på plats och upplev SH-Cutz skillnaden.
           </h3>
           <Link
             href="https://goo.gl/maps/your-google-maps-link"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
           >
-            <button className="bg-[#b2862d] text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-[#b2862d]/80 transition-all duration-200">
+            <button className="bg-yellow-500 dark:bg-gold text-gray-900 dark:text-charcoal px-6 py-3 rounded-lg font-semibold shadow hover:bg-yellow-600 transition-all duration-200">
               Visa på Google Maps
             </button>
           </Link>

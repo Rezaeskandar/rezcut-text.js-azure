@@ -37,10 +37,10 @@ export default function HomePage() {
 
       {/* About Section */}
       <section className="max-w-3xl mx-auto py-16 px-4 text-center transition-colors duration-300">
-        <h2 className="text-3xl font-bold text-yellow-600 dark:text-yellow-400 mb-4">
+        <h2 className="text-3xl font-bold text-yellow-600 dark:text-gold mb-4">
           About SH-Cutz
         </h2>
-        <p className="text-lg text-gray-700 dark:text-gray-200 mb-2">
+        <p className="text-lg text-gray-700 dark:text-white mb-2">
           SH-Cutz is where classic craftsmanship meets modern style. Our barbers
           are passionate about precision, quality, and making every client look
           their best. Experience a luxurious, welcoming atmosphere with
@@ -50,75 +50,81 @@ export default function HomePage() {
 
       {/* Services Section */}
       <section className="max-w-5xl mx-auto py-16 px-4">
-        <h2 className="text-3xl font-bold text-gold mb-8 text-center">
+        <h2 className="text-3xl font-bold text-yellow-600 dark:text-gold mb-8 text-center">
           Our Services
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Service Card Example */}
-          <div className="bg-[#6b5b5b] rounded-xl shadow-lg p-6 flex flex-col items-center hover:scale-105 transition">
-            <Image
-              src="/images/haircut-icon.svg"
-              alt="Haircut"
-              width={48}
-              height={48}
-            />
-            <h3 className="text-xl font-semibold text-gold mt-4 mb-2">
+          <div className="bg-white dark:bg-[#232323] rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition">
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mt-4 mb-2">
               Haircut
             </h3>
-            <p className="text-cream mb-2">350 kr · 30 min</p>
-            <p className="text-sm text-gray-300">
+            <p className="text-gray-700 dark:text-white mb-2">
+              450 kr · 45 min
+            </p>
+            <p className="text-sm text-gray-500 dark:text-white flex-grow">
               Classic & modern cuts tailored to you.
             </p>
+            <Link href="/boking?service=1" className="mt-4">
+              <button className="bg-yellow-500 dark:bg-gold text-gray-900 dark:text-charcoal font-semibold px-5 py-2 rounded-lg shadow hover:bg-yellow-600 transition-all text-sm">
+                Boka
+              </button>
+            </Link>
           </div>
-          <div className="bg-[#6b5b5b] rounded-xl shadow-lg p-6 flex flex-col items-center hover:scale-105 transition">
-            <Image
-              src="/images/beard-icon.svg"
-              alt="Beard Trim"
-              width={48}
-              height={48}
-            />
-            <h3 className="text-xl font-semibold text-gold mt-4 mb-2">
+          <div className="bg-white dark:bg-[#232323] rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition">
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mt-4 mb-2">
               Beard Trim
             </h3>
-            <p className="text-cream mb-2">200 kr · 20 min</p>
-            <p className="text-sm text-gray-300">
+            <p className="text-gray-700 dark:text-white mb-2">
+              300 kr · 30 min
+            </p>
+            <p className="text-sm text-gray-500 dark:text-white flex-grow">
               Sharp lines, perfect shape, expert grooming.
             </p>
+            <Link href="/boking?service=2" className="mt-4">
+              <button className="bg-yellow-500 dark:bg-gold text-gray-900 dark:text-charcoal font-semibold px-5 py-2 rounded-lg shadow hover:bg-yellow-600 transition-all text-sm">
+                Boka
+              </button>
+            </Link>
           </div>
-          <div className="bg-[#6b5b5b] rounded-xl shadow-lg p-6 flex flex-col items-center hover:scale-105 transition">
-            <Image
-              src="/images/combo-icon.svg"
-              alt="Combo"
-              width={48}
-              height={48}
-            />
-            <h3 className="text-xl font-semibold text-gold mt-4 mb-2">Combo</h3>
-            <p className="text-cream mb-2">500 kr · 50 min</p>
-            <p className="text-sm text-gray-300">
+          <div className="bg-white dark:bg-[#232323] rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition">
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mt-4 mb-2">
+              Combo
+            </h3>
+            <p className="text-gray-700 dark:text-white mb-2">
+              650 kr · 60 min
+            </p>
+            <p className="text-sm text-gray-500 dark:text-white flex-grow">
               Haircut & beard trim for a complete look.
             </p>
+            <Link href="/boking?service=3" className="mt-4">
+              <button className="bg-yellow-500 dark:bg-gold text-gray-900 dark:text-charcoal font-semibold px-5 py-2 rounded-lg shadow hover:bg-yellow-600 transition-all text-sm">
+                Boka
+              </button>
+            </Link>
           </div>
-          <div className="bg-[#6b5b5b] rounded-xl shadow-lg p-6 flex flex-col items-center hover:scale-105 transition">
-            <Image
-              src="/images/kids-icon.svg"
-              alt="Kids Cut"
-              width={48}
-              height={48}
-            />
-            <h3 className="text-xl font-semibold text-gold mt-4 mb-2">
+          <div className="bg-white dark:bg-[#232323] rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:scale-105 transition">
+            <h3 className="text-xl font-semibold text-gray-800 dark:text-white mt-4 mb-2">
               Kids Cut
             </h3>
-            <p className="text-cream mb-2">250 kr · 25 min</p>
-            <p className="text-sm text-gray-300">
+            <p className="text-gray-700 dark:text-white mb-2">
+              250 kr · 25 min
+            </p>
+            <p className="text-sm text-gray-500 dark:text-white flex-grow">
               Fun, stylish cuts for the young ones.
             </p>
+            <Link href="/boking" className="mt-4">
+              <button className="bg-yellow-500 dark:bg-gold text-gray-900 dark:text-charcoal font-semibold px-5 py-2 rounded-lg shadow hover:bg-yellow-600 transition-all text-sm">
+                Boka
+              </button>
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Portfolio / Gallery Section */}
       <section className="max-w-5xl mx-auto py-16 px-4">
-        <h2 className="text-3xl font-bold text-gold mb-8 text-center">
+        <h2 className="text-3xl font-bold text-yellow-600 dark:text-gold mb-8 text-center">
           Gallery
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -140,7 +146,7 @@ export default function HomePage() {
       </section>
       {/* Testimonials Section */}
       <section className="max-w-4xl mx-auto py-16 px-4">
-        <h2 className="text-3xl font-bold text-gold mb-8 text-center">
+        <h2 className="text-3xl font-bold text-yellow-600 dark:text-gold mb-8 text-center">
           Vad Våra Kunder Säger
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -165,13 +171,13 @@ export default function HomePage() {
           ].map((testimonial, idx) => (
             <div
               key={idx}
-              className="bg-[#6b5b5b] rounded-xl shadow-lg p-6 flex flex-col items-center"
+              className="bg-white dark:bg-[#232323] rounded-xl shadow-lg p-6 flex flex-col items-center"
             >
               <div className="flex mb-2">
                 {[...Array(testimonial.stars)].map((_, i) => (
                   <svg
                     key={i}
-                    className="w-5 h-5 text-gold"
+                    className="w-5 h-5 text-yellow-500 dark:text-gold"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -179,10 +185,10 @@ export default function HomePage() {
                   </svg>
                 ))}
               </div>
-              <p className="text-cream text-center mb-2 italic">
+              <p className="text-gray-600 dark:text-white text-center mb-2 italic">
                 &quot;{testimonial.review}&quot;
               </p>
-              <span className="text-gold font-semibold">
+              <span className="text-gray-800 dark:text-gold font-semibold">
                 {testimonial.name}
               </span>
             </div>
@@ -191,12 +197,12 @@ export default function HomePage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 px-4 flex flex-col items-center bg-[#6b5b5b]">
-        <h2 className="text-2xl md:text-3xl font-bold text-gold mb-4 text-center">
+      <section className="py-16 px-4 flex flex-col items-center bg-gray-100 dark:bg-[#232323]">
+        <h2 className="text-2xl md:text-3xl font-bold text-yellow-600 dark:text-gold mb-4 text-center">
           Redo att boka?
         </h2>
         <Link href="/boking">
-          <button className="bg-gold text-charcoal font-semibold px-8 py-3 rounded-lg shadow hover:bg-yellow-600 transition">
+          <button className="bg-yellow-500 dark:bg-gold text-gray-900 dark:text-charcoal font-semibold px-8 py-3 rounded-lg shadow hover:bg-yellow-600 transition">
             Boka Nu
           </button>
         </Link>
@@ -204,9 +210,11 @@ export default function HomePage() {
 
       {/* Map Section */}
       <section className="py-16 px-4">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-gold mb-8">Hitta till oss</h2>
-          <div className="overflow-hidden rounded-xl shadow-lg border-2 border-gold">
+        <div className="max-w-5xl mx-auto text-center ">
+          <h2 className="text-3xl font-bold text-yellow-600 dark:text-gold mb-8">
+            Hitta till oss
+          </h2>
+          <div className="overflow-hidden rounded-xl shadow-lg border-2 border-gray-200 dark:border-gold">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2035.840277688065!2d18.07380137704258!3d59.31550397464879!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465f77e4a3a3b2e9%3A0x6e3dcf228a30997!2zw4Vzw7ZnYXRhbiA5MiwgMTE4IDI5IFN0b2NraG9sbQ!5e0!3m2!1ssv!2sse!4v1716386954497!5m2!1ssv!2sse"
               width="100%"
@@ -218,7 +226,7 @@ export default function HomePage() {
               title="Karta som visar platsen för SH-Cutz"
             ></iframe>
           </div>
-          <p className="text-cream mt-4 text-lg">
+          <p className="text-gray-700 dark:text-white mt-4 text-lg">
             Åsögatan 92, Södermalm, Stockholm
           </p>
         </div>

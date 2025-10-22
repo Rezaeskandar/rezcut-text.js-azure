@@ -34,24 +34,24 @@
 // }
 
 // app/layout.tsx
-import './globals.css'
-import { ReactNode } from 'react'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
+import "./globals.css";
+import { ReactNode } from "react";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export const metadata = {
-  title: 'SH-Cutz Barbershop',
-  description: 'Boka din tid hos SH-Cutz – Hantverk. Stil. SH-Cutz.',
-}
+  title: "SH-Cutz Barbershop",
+  description: "Boka din tid hos SH-Cutz – Hantverk. Stil. SH-Cutz.",
+};
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="sv">
-      <body className="bg-charcoal text-cream font-sans">
+      <body className="bg-white dark:bg-charcoal text-gray-800 dark:text-cream font-sans transition-colors duration-300">
         <Navbar />
-        <main className="min-h-screen px-4 py-8">{children}</main>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
-  )
+  );
 }

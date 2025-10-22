@@ -191,23 +191,24 @@ export default function BookingForm({
   }
 
   // Disable days that are not working days
-  const disabledDays = (day: Date) => {
-    return !availability.workingDays.includes(day.getDay());
-  };
+  const disabledDays = [
+    { before: startOfToday() }, // Inaktivera alla dagar före idag
+    (day: Date) => !availability.workingDays.includes(day.getDay()), // Inaktivera dagar som inte är arbetsdagar
+  ];
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full max-w-4xl mx-auto p-4 sm:p-8 bg-[#232323] text-cream shadow-2xl rounded-2xl"
+      className="w-full max-w-4xl mx-auto p-4 sm:p-8 bg-white dark:bg-[#232323] text-gray-800 dark:text-cream shadow-2xl rounded-2xl"
     >
-      <h2 className="text-2xl font-bold text-gold mb-6 text-center">
+      <h2 className="text-2xl font-bold text-yellow-600 dark:text-gold mb-6 text-center">
         Boka Din Tid
       </h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
         {/* Date Selection */}
         <div className="flex flex-col gap-4">
-          <label className="block text-lg font-medium text-gold mb-2">
+          <label className="block text-lg font-medium text-yellow-600 dark:text-gold mb-2">
             1. Välj Datum
           </label>
           <DayPicker
@@ -215,22 +216,24 @@ export default function BookingForm({
             selected={selectedDay}
             onSelect={setSelectedDay}
             locale={sv}
-            fromDate={startOfToday()}
-            disabled={disabledDays}
-            className="bg-[#1f1f1f] p-4 rounded-lg shadow-inner"
+            disabled={disabledDays} // Använd den kombinerade regeln
+            className="bg-gray-50 dark:bg-[#1f1f1f] p-4 rounded-lg shadow-inner"
             classNames={{
-              caption_label: "text-gold",
-              head_cell: "text-cream w-10 font-medium text-sm", // Centrerar och stylar veckodagarna
-              day: "text-cream hover:bg-gold hover:text-charcoal rounded-full",
-              day_selected: "bg-gold text-charcoal rounded-full",
-              day_today: "text-gold font-bold",
+              caption_label: "text-yellow-600 dark:text-gold",
+              head_cell:
+                "text-gray-500 dark:text-gray-400 w-10 font-medium text-sm",
+              day: "text-gray-800 dark:text-white hover:bg-yellow-500 dark:hover:bg-gold hover:text-gray-900 dark:hover:text-charcoal rounded-full",
+              day_selected:
+                "bg-yellow-500 dark:bg-gold text-gray-900 dark:text-charcoal rounded-full",
+              day_today: "text-yellow-600 dark:text-gold font-bold",
               day_disabled: "text-gray-600 cursor-not-allowed",
-              nav_button_previous: "text-cream hover:bg-gray-700",
-              nav_button_next: "text-cream hover:bg-gray-700",
+              nav_button_previous:
+                "text-gray-700 dark:text-cream hover:bg-gray-200 dark:hover:bg-gray-700",
+              nav_button_next:
+                "text-gray-700 dark:text-cream hover:bg-gray-200 dark:hover:bg-gray-700",
               month: "space-y-4",
-              weeknumber: "text-cream",
               row: "flex w-full mt-2",
-              cell: "text-cream h-10 w-10 flex items-center justify-center",
+              cell: "h-10 w-10 flex items-center justify-center",
             }}
           />
         </div>
@@ -239,7 +242,7 @@ export default function BookingForm({
         <div className="flex flex-col gap-6">
           {selectedDay && (
             <div className="flex flex-col gap-4">
-              <label className="block text-lg font-medium text-gold mb-2">
+              <label className="block text-lg font-medium text-yellow-600 dark:text-gold mb-2">
                 2. Välj Tid
               </label>
               <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 max-h-60 overflow-y-auto pr-2">
@@ -251,8 +254,8 @@ export default function BookingForm({
                       onClick={() => setForm({ ...form, time })}
                       className={`p-2 rounded-lg text-center transition-colors text-sm ${
                         form.time === time
-                          ? "bg-gold text-charcoal font-bold"
-                          : "bg-[#1f1f1f] text-cream hover:bg-gold/20"
+                          ? "bg-yellow-500 dark:bg-gold text-gray-900 dark:text-charcoal font-bold"
+                          : "bg-gray-100 dark:bg-[#1f1f1f] text-gray-800 dark:text-white hover:bg-yellow-500 dark:hover:bg-gold hover:text-gray-900 dark:hover:text-charcoal"
                       }`}
                     >
                       {time}
@@ -268,7 +271,7 @@ export default function BookingForm({
           )}
 
           <div className="flex flex-col gap-4">
-            <label className="block text-lg font-medium text-gold mb-1 mt-4">
+            <label className="block text-lg font-medium text-yellow-600 dark:text-gold mb-1 mt-4">
               3. Dina Uppgifter
             </label>
             <input
@@ -276,7 +279,7 @@ export default function BookingForm({
               value={form.name}
               onChange={handleChange}
               required
-              className="w-full border border-gold bg-[#1f1f1f] text-cream px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold placeholder:text-gray-400"
+              className="w-full border border-gray-300 dark:border-gold bg-gray-50 dark:bg-[#1f1f1f] text-gray-800 dark:text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:focus:ring-gold placeholder:text-gray-400"
               placeholder="Ditt namn"
             />
             <input
@@ -285,21 +288,21 @@ export default function BookingForm({
               onChange={handleChange}
               type="email"
               required
-              className="w-full border border-gold bg-[#1f1f1f] text-cream px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold placeholder:text-gray-400"
+              className="w-full border border-gray-300 dark:border-gold bg-gray-50 dark:bg-[#1f1f1f] text-gray-800 dark:text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:focus:ring-gold placeholder:text-gray-400"
               placeholder="mail@exempel.se"
             />
             <input
               name="phone"
               value={form.phone}
               onChange={handleChange}
-              className="w-full border border-gold bg-[#1f1f1f] text-cream px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold placeholder:text-gray-400"
+              className="w-full border border-gray-300 dark:border-gold bg-gray-50 dark:bg-[#1f1f1f] text-gray-800 dark:text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:focus:ring-gold placeholder:text-gray-400"
               placeholder="070-123 45 67 (valfritt)"
             />
             <select
               name="serviceId"
               value={form.serviceId}
               onChange={handleChange}
-              className="w-full border border-gold bg-[#1f1f1f] text-cream px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold"
+              className="w-full border border-gray-300 dark:border-gold bg-gray-50 dark:bg-[#1f1f1f] text-gray-800 dark:text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:focus:ring-gold"
             >
               {allServices.map((s: Service) => (
                 <option key={s.id} value={s.id}>
@@ -311,7 +314,7 @@ export default function BookingForm({
               name="notes"
               value={form.notes}
               onChange={handleChange}
-              className="w-full border border-gold bg-[#1f1f1f] text-cream px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold placeholder:text-gray-400"
+              className="w-full border border-gray-300 dark:border-gold bg-gray-50 dark:bg-[#1f1f1f] text-gray-800 dark:text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:focus:ring-gold placeholder:text-gray-400"
               rows={3}
               placeholder="Önskemål eller info"
             />
@@ -325,7 +328,7 @@ export default function BookingForm({
           disabled={
             loading || !selectedDay || !form.time || !form.name || !form.email
           }
-          className="bg-gold text-charcoal font-semibold px-8 py-3 rounded-lg shadow hover:bg-yellow-600 transition disabled:bg-gray-500 disabled:cursor-not-allowed"
+          className="bg-yellow-500 dark:bg-gold text-gray-900 dark:text-charcoal font-semibold px-8 py-3 rounded-lg shadow hover:bg-yellow-600 transition disabled:bg-gray-400 dark:disabled:bg-gray-500 disabled:cursor-not-allowed"
         >
           {loading ? "Bokar..." : "Slutför Bokning"}
         </button>
@@ -333,7 +336,9 @@ export default function BookingForm({
         {message && (
           <div
             className={`text-center font-medium mt-4 ${
-              message.type === "success" ? "text-green-400" : "text-red-500"
+              message.type === "success"
+                ? "text-green-600 dark:text-green-400"
+                : "text-red-600 dark:text-red-500"
             }`}
           >
             {message.text}
