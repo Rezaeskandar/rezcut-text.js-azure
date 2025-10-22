@@ -3,13 +3,21 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --charcoal: #1f1f1f;
+  --cream: #f5f5f5;
+  --gold: #b2862d;
+  --card-bg: #ffffff;
+  --text-secondary: #6b7280;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --charcoal: #0a0a0a;
+  --cream: #ededed;
+  --gold: #fbbf24;
+  --card-bg: #1f1f1f;
+  --text-secondary: #9ca3af;
 }
 
 body {

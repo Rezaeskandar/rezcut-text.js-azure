@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import ThemeToggle from "./ThemeToggle";
+import Image from "next/image";
 
 const navLinks = [
   { href: "/", label: "Hem" },
@@ -30,9 +32,17 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-[#b2862d] text-2xl font-bold transition-transform duration-200 hover:scale-105">
+          {/* <span className="text-[#b2862d] text-2xl font-bold transition-transform duration-200 hover:scale-105">
             ✂ SH-Cutz
-          </span>
+          </span> */}
+          <Image
+            src="/logo.png"
+            alt="SH-Cutz Logo"
+            width={48}
+            height={48}
+            className="transition-transform duration-200 hover:scale-105"
+          />
+        
         </Link>
 
         {/* Desktop Menu */}
@@ -56,14 +66,17 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Hamburger */}
-        <button
-          className="md:hidden text-white text-3xl focus:outline-none"
-          onClick={() => setMenuOpen((open) => !open)}
-          aria-label="Öppna meny"
-        >
-          {menuOpen ? "✕" : "☰"}
-        </button>
+        {/* Theme Toggle and Hamburger */}
+        <div className="flex items-center gap-4">
+          <ThemeToggle />
+          <button
+            className="md:hidden text-white text-3xl focus:outline-none"
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-label="Öppna meny"
+          >
+            {menuOpen ? "✕" : "☰"}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Menu */}
