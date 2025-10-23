@@ -14,6 +14,7 @@ type FormState = {
   email: string;
   phone?: string;
   serviceId: string;
+  barber: string;
   time: string;
   notes?: string;
 };
@@ -98,6 +99,7 @@ export default function BookingForm({
     email: "",
     phone: "",
     serviceId: defaultServiceId || allServices[0].id,
+    barber: "Vem som helst",
     time: "",
     notes: "",
   });
@@ -152,6 +154,7 @@ export default function BookingForm({
       email: form.email,
       phone: form.phone,
       service: selectedService.title, // Use service title for API
+      barber: form.barber,
       date: format(selectedDay, "yyyy-MM-dd"), // Format date for API
       time: form.time,
       message: form.notes, // Use notes for message
@@ -181,6 +184,7 @@ export default function BookingForm({
           email: "",
           phone: "",
           serviceId: defaultServiceId || allServices[0].id,
+          barber: "Vem som helst",
           time: "",
           notes: "",
         });
@@ -305,6 +309,18 @@ export default function BookingForm({
               className="w-full border border-gray-300 dark:border-gold bg-gray-50 dark:bg-[#1f1f1f] text-gray-800 dark:text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:focus:ring-gold placeholder:text-gray-400"
               placeholder="070-123 45 67 (valfritt)"
             />
+            <select
+              name="barber"
+              value={form.barber}
+              onChange={handleChange}
+              className="w-full border border-gray-300 dark:border-gold bg-gray-50 dark:bg-[#1f1f1f] text-gray-800 dark:text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:focus:ring-gold"
+            >
+              <option value="Vem som helst">
+                Välj barberare (Vem som helst)
+              </option>
+              <option value="Ahmad">Ahmad</option>
+              <option value="Farshad">Farshad</option>
+            </select>
             <select
               name="serviceId"
               value={form.serviceId}
