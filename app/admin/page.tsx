@@ -1,63 +1,151 @@
 "use client";
+
 import { useState, useEffect } from "react";
 
-// Typ för en bokning
-interface Booking {
+type Booking = {
   id: number;
   name: string;
+  email: string;
+  phone?: string;
   service: string;
+  barber: string;
   date: string;
   time: string;
-  phone: string;
-  email: string;
   message?: string;
-  handled: boolean;
   created: string;
-}
+  handled: boolean;
+};
 
-export default function AdminPage() {
+function AdminContent() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [password, setPassword] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  // Ditt admin-lösenord (lägg helst i .env.local)
-  const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "";
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (loggedIn) {
-      fetchBookings();
+    async function fetchBookings() {
+      try {
+        const res = await fetch("/api/bookings");
+        if (!res.ok) {
+          throw new Error("Kunde inte hämta bokningar");
+        }
+        const data = await res.json();
+        // Sortera bokningar med de senaste först
+        setBookings(data.sort((a: Booking, b: Booking) => b.id - a.id));
+      } catch (error) {
+        setError("Kunde inte ladda bokningar. Försök igen senare.");
+      } finally {
+        setLoading(false);
+      }
     }
-  }, [loggedIn]);
+    fetchBookings();
+  }, []);
 
-  async function fetchBookings() {
-    setLoading(true);
-    setError("");
-    try {
-      const res = await fetch("/api/bookings");
-      if (!res.ok) throw new Error("Nätverksfel");
-      const data: Booking[] = await res.json();
-      setBookings(data);
-    } catch {
-      setError("Kunde inte hämta bokningar.");
-    } finally {
-      setLoading(false);
-    }
-  }
+  async function toggleHandled(id: number, handled: boolean) {
+    // Uppdatera UI direkt för en snabbare upplevelse
+    setBookings((prev) =>
+      prev.map((b) => (b.id === id ? { ...b, handled } : b))
+    );
 
-  async function handleMarkHandled(id: number, handled: boolean) {
     try {
-      await fetch("/api/bookings", {
+      const res = await fetch("/api/bookings", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, handled }),
       });
-      fetchBookings();
-    } catch {
-      setError("Kunde inte uppdatera bokning.");
+      if (!res.ok) {
+        throw new Error("Kunde inte uppdatera status");
+      }
+    } catch (error) {
+      // Återställ UI om anropet misslyckas
+      alert("Kunde inte uppdatera status. Försök igen.");
+      setBookings((prev) =>
+        prev.map((b) => (b.id === id ? { ...b, handled: !handled } : b))
+      );
     }
   }
+
+  if (loading) {
+    return <div className="text-center p-8">Laddar bokningar...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center p-8 text-red-500">{error}</div>;
+  }
+
+  return (
+    <div className="min-h-screen bg-[#f9f9f9] font-sans">
+      <header className="bg-[#1f1f1f] text-white py-6 text-center shadow-md">
+        <h1 className="text-3xl font-bold text-[#b2862d]">Rezcut Admin</h1>
+      </header>
+
+      <main className="max-w-4xl mx-auto py-12 px-4">
+        <h2 className="text-2xl font-bold mb-6">Bokningar</h2>
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+          <ul className="divide-y divide-gray-200">
+            {bookings.length > 0 ? (
+              bookings.map((booking) => (
+                <li
+                  key={booking.id}
+                  className={`p-6 transition-colors ${
+                    booking.handled ? "bg-gray-100" : "bg-white"
+                  }`}
+                >
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="font-bold text-lg text-gray-800">
+                        {booking.name}
+                      </p>
+                      <p className="text-sm text-gray-600">{booking.email}</p>
+                      <p className="text-sm text-gray-600">{booking.phone}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-semibold text-gray-800">
+                        {booking.date} kl. {booking.time}
+                      </p>
+                      <p className="text-sm text-gray-600">{booking.service}</p>
+                    </div>
+                  </div>
+                  {booking.message && (
+                    <p className="mt-4 text-sm text-gray-700 bg-gray-50 p-3 rounded-md">
+                      Meddelande: {booking.message}
+                    </p>
+                  )}
+                  <div className="mt-4 flex justify-end">
+                    <button
+                      onClick={() =>
+                        toggleHandled(booking.id, !booking.handled)
+                      }
+                      className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                        booking.handled
+                          ? "bg-gray-300 text-gray-700 hover:bg-gray-400"
+                          : "bg-green-500 text-white hover:bg-green-600"
+                      }`}
+                    >
+                      {booking.handled
+                        ? "Markera som ohanterad"
+                        : "Markera som hanterad"}
+                    </button>
+                  </div>
+                </li>
+              ))
+            ) : (
+              <p className="p-6 text-center text-gray-500">
+                Inga bokningar att visa.
+              </p>
+            )}
+          </ul>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+export default function AdminPage() {
+  const [password, setPassword] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [error, setError] = useState("");
+
+  const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "";
 
   function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -99,86 +187,5 @@ export default function AdminPage() {
     );
   }
 
-  return (
-    <div className="min-h-screen bg-[#f9f9f9] font-sans">
-      <header className="bg-[#1f1f1f] text-white py-6 text-center shadow-md">
-        <h1 className="text-3xl font-bold text-[#b2862d]">SH-Cutz Admin</h1>
-      </header>
-
-      <main className="max-w-4xl mx-auto py-12 px-4">
-        <h2 className="text-2xl font-bold mb-6">Bokningar</h2>
-
-        {loading ? (
-          <div>Laddar bokningar...</div>
-        ) : bookings.length === 0 ? (
-          <div>Inga bokningar ännu.</div>
-        ) : (
-          <ul className="space-y-6">
-            {bookings.map((b) => (
-              <li
-                key={b.id}
-                className={`bg-[#232323] rounded-xl shadow p-6 flex flex-col gap-2 border-l-4 ${
-                  b.handled ? "border-green-500" : "border-[#b2862d]"
-                }`}
-              >
-                <div className="flex justify-between items-center">
-                  <span className="font-bold text-lg text-white">{b.name}</span>
-                  <span className="text-sm text-gray-400">
-                    {new Date(b.created).toLocaleString()}
-                  </span>
-                </div>
-                <div className="text-white">
-                  <span className="font-semibold">Tjänst:</span> {b.service}
-                </div>
-                <div className="text-white">
-                  <span className="font-semibold">Datum:</span> {b.date}{" "}
-                  <span className="font-semibold">Tid:</span> {b.time}
-                </div>
-                <div className="text-white">
-                  <span className="font-semibold">Telefon:</span> {b.phone}
-                </div>
-                <div className="text-white">
-                  <span className="font-semibold">E-post:</span> {b.email}
-                </div>
-                {b.message && (
-                  <div className="text-white">
-                    <span className="font-semibold">Meddelande:</span>{" "}
-                    {b.message}
-                  </div>
-                )}
-
-                <div className="flex gap-4 mt-2">
-                  <button
-                    className={`px-4 py-2 rounded-lg font-semibold transition-all duration-200 ${
-                      b.handled
-                        ? "bg-green-500 text-white"
-                        : "bg-[#b2862d] text-white hover:bg-[#b2862d]/80"
-                    }`}
-                    onClick={() => handleMarkHandled(b.id, !b.handled)}
-                  >
-                    {b.handled
-                      ? "Markera som ohanterad"
-                      : "Markera som hanterad"}
-                  </button>
-
-                  <a
-                    href={`mailto:${b.email}`}
-                    className="px-4 py-2 rounded-lg bg-[#232323] border border-[#b2862d] text-[#b2862d] font-semibold hover:bg-[#b2862d] hover:text-white transition-all duration-200"
-                  >
-                    Svara
-                  </a>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-
-        {error && (
-          <div className="text-red-600 text-center font-medium mt-6">
-            {error}
-          </div>
-        )}
-      </main>
-    </div>
-  );
+  return <AdminContent />;
 }

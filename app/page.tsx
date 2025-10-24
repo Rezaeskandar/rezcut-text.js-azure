@@ -26,14 +26,14 @@ export default function HomePage() {
       <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
         <Image
           src="/images/barbershop-hero.jpg"
-          alt="Noori's Barber Interior"
+          alt="Rezcut Interior"
           fill
           priority
           className="object-cover object-center brightness-75"
         />
         <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center text-center px-4">
           <h1 className="text-5xl md:text-6xl font-bold text-[var(--gold)] mb-4 drop-shadow-lg">
-            Noori&apos;s Barber
+            Rezcut
           </h1>
           <p className="text-lg md:text-2xl text-[var(--cream)] mb-8 font-light">
             Professionell barbershop där varje klippning är ett hantverk.
@@ -56,13 +56,13 @@ export default function HomePage() {
       {/* About Section */}
       <section className="max-w-3xl mx-auto py-16 px-4 text-center transition-colors duration-300">
         <h2 className="text-3xl font-bold text-yellow-600 dark:text-gold mb-4">
-          Om Noori&apos;s Barber
+          Om Rezcut
         </h2>
         <p className="text-lg text-gray-700 dark:text-white mb-2">
-          Noori&apos;s Barber är där klassiskt hantverk möter modern stil. Våra
-          barberare brinner för precision, kvalitet och att få varje kund att se
-          sitt bästa ut. Upplev en lyxig, välkomnande atmosfär med omsorg för
-          varje detalj.
+          Rezcut är där klassiskt hantverk möter modern stil. Våra barberare
+          brinner för precision, kvalitet och att få varje kund att se sitt
+          bästa ut. Upplev en lyxig, välkomnande atmosfär med omsorg för varje
+          detalj.
         </p>
       </section>
 
@@ -217,18 +217,18 @@ export default function HomePage() {
           </h2>
           <div className="overflow-hidden rounded-xl shadow-lg border-2 border-gray-200 dark:border-gold">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2035.840277688065!2d18.07380137704258!3d59.31550397464879!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465f77e4a3a3b2e9%3A0x6e3dcf228a30997!2zw4Vzw7ZnYXRhbiA5MiwgMTE4IDI5IFN0b2NraG9sbQ!5e0!3m2!1ssv!2sse!4v1716386954497!5m2!1ssv!2sse"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2024.085828158095!2d17.92318967705277!3d59.51749997482326!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465f97b163a3c5a9%3A0x811c733c1393899!2sCentralv%C3%A4gen%201%2C%20194%2076%20Upplands%20V%C3%A4sby!5e0!3m2!1ssv!2sse!4v1721298154915!5m2!1ssv!2sse"
               width="100%"
               height="450"
               style={{ border: 0 }}
               allowFullScreen={true}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Karta som visar platsen för Noori's Barber"
+              title="Karta som visar platsen för Rezcut i Upplands Väsby"
             ></iframe>
           </div>
           <p className="text-gray-700 dark:text-white mt-4 text-lg">
-            Åsögatan 92, Södermalm, Stockholm
+            Centralvägen 1, 194 76 Upplands Väsby
           </p>
         </div>
       </section>

@@ -37,9 +37,9 @@ export default function Navbar() {
           </span> */}
           <Image
             src="/logo.png"
-            alt="Noori's Barber Logo"
-            width={48}
-            height={48}
+            alt="Rezcut Logo"
+            width={64}
+            height={64}
             className="transition-transform duration-200 hover:scale-105"
           />
         </Link>

@@ -77,8 +77,8 @@ export default function ContactPage() {
           <ul className="space-y-4 text-gray-700 dark:text-gray-300 text-lg">
             <li>
               <span className="mr-2">📍</span>{" "}
-              <span className="font-semibold">Adress:</span> Åsögatan 92
-              Södermalm
+              <span className="font-semibold">Adress:</span> Centralvägen 1, 194
+              76 Upplands Väsby
             </li>
             <li>
               <span className="mr-2">📞</span>{" "}
@@ -86,8 +86,7 @@ export default function ContactPage() {
             </li>
             <li>
               <span className="mr-2">📧</span>{" "}
-              <span className="font-semibold">E-post:</span>{" "}
-              info@noorisbarber.se
+              <span className="font-semibold">E-post:</span> info@rezcut.se
             </li>
           </ul>
           <div className="mt-8">
@@ -195,10 +194,10 @@ export default function ContactPage() {
       <section className="bg-gray-100 dark:bg-[#1f1f1f] py-12 mt-8">
         <div className="max-w-3xl mx-auto text-center px-4">
           <h3 className="text-2xl font-bold text-yellow-600 dark:text-gold mb-4">
-            Besök oss på plats och upplev Noori&apos;s Barber-skillnaden.
+            Besök oss på plats och upplev Rezcut-skillnaden.
           </h3>
           <Link
-            href="https://www.google.com/maps/place/Åsögatan+92,+118+29+Stockholm"
+            href="https://www.google.com/maps/place/Centralv%C3%A4gen+1,+194+76+Upplands+V%C3%A4sby"
             target="_blank"
             rel="noopener noreferrer"
           >

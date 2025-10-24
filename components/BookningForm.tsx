@@ -1,13 +1,22 @@
 // components/BookningForm.tsx
 "use client";
 
-import { useState, useEffect } from "react";
-import { services as allServices, Service } from "../data/services";
+import { useState, useEffect } from "react"; // Added useEffect for consistency
+import { services as allServices, Service } from "../data/services"; // Corrected import
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css"; // Import the default styles
 import { format, startOfToday, setHours, setMinutes } from "date-fns";
 import { sv } from "date-fns/locale"; // For Swedish locale in calendar
 import { availability } from "../data/availability"; // Import availability data
+
+type Availability = {
+  startTime: string;
+  endTime: string;
+  saturdayEndTime: string;
+  slotDurationMinutes: number;
+  workingDays: number[];
+  breakTimes: { start: string; end: string }[];
+};
 
 type FormState = {
   name: string;
@@ -23,28 +32,16 @@ type FormState = {
 const generateTimeSlots = (date: Date | undefined) => {
   if (!date) return [];
 
+  const slots = [];
   const {
     startTime,
     slotDurationMinutes,
     workingDays,
     breakTimes = [],
   } = availability;
-  const slots = [];
   const now = new Date();
   const isToday = format(date, "yyyy-MM-dd") === format(now, "yyyy-MM-dd");
   const dayOfWeek = date.getDay(); // 0=Söndag, 6=Lördag
-
-  // Check if the selected day is a working day
-  if (!workingDays.includes(dayOfWeek)) {
-    return [];
-  }
-
-  // Sätt en specifik sluttid för lördagar
-  let endTime = availability.endTime;
-  if (dayOfWeek === 6) {
-    // 6 är lördag
-    endTime = "15:00";
-  }
 
   let currentSlotStart = setMinutes(setHours(date, 0), 0); // Start from beginning of selected day
   const [startHour, startMinute] = startTime.split(":").map(Number);
@@ -52,6 +49,12 @@ const generateTimeSlots = (date: Date | undefined) => {
   currentSlotStart = setMinutes(currentSlotStart, startMinute);
 
   const endOfDayTime = setMinutes(setHours(date, 0), 0); // End of selected day
+  // Sätt en specifik sluttid för lördagar
+  let endTime = availability.endTime;
+  if (dayOfWeek === 6) {
+    // 6 är lördag
+    endTime = "15:00";
+  }
   const [endHour, endMinute] = endTime.split(":").map(Number);
   endOfDayTime.setHours(endHour, endMinute);
 

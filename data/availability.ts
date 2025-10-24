@@ -1,16 +1,9 @@
-export type Availability = {
-  workingDays: number[]; // 0=Söndag, 1=Måndag, ..., 6=Lördag
-  startTime: string; // HH:mm format
-  endTime: string; // HH:mm format
-  slotDurationMinutes: number; // Längd på varje tidsslot i minuter
-  breakTimes?: { start: string; end: string }[]; // Valfria raster
-};
-
-export const availability: Availability = {
-  workingDays: [1, 2, 3, 4, 5, 6], // Måndag till Lördag
+export const availability = {
   startTime: "10:00",
   endTime: "20:00",
+  saturdayEndTime: "15:00",
   slotDurationMinutes: 30,
+  workingDays: [1, 2, 3, 4, 5, 6], // Mån-Lör
   breakTimes: [
     { start: "13:00", end: "14:00" }, // Lunchrast
   ],

@@ -45,9 +45,9 @@ export default function Footer() {
         {/* Contact Info */}
         <div>
           <h3 className="text-gold font-bold mb-4">Kontakt</h3>
-          <p>Åsögatan 92 Södermalm</p>
-          <p>0708659138</p>
-          <p>info@noorisbarber.se</p>
+          <p>Centralvägen 1, 194 76 Upplands Väsby</p>
+          <p>070-123 45 67</p>
+          <p>info@rezcut.se</p>
         </div>
 
         {/* Opening Hours */}
@@ -60,8 +60,7 @@ export default function Footer() {
       </div>
 
       <div className="mt-8 text-center text-gray-300 text-sm">
-        &copy; {new Date().getFullYear()} Noori&apos;s Barber. Alla rättigheter
-        förbehållna.
+        &copy; {new Date().getFullYear()} Rezcut. Alla rättigheter förbehållna.
       </div>
     </footer>
   );

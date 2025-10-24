@@ -40,14 +40,14 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export const metadata = {
-  title: "Noori's Barber",
-  description: "Boka din tid hos Noori's Barber – Hantverk. Stil. Kvalitet.",
+  title: "Rezcut Barbershop",
+  description: "Boka din tid hos Rezcut – Hantverk. Stil. Kvalitet.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="sv">
-      <body className="bg-white dark:bg-charcoal text-gray-800 dark:text-cream font-sans transition-colors duration-300">
+      <body className="bg-white dark:bg-charcoal text-gray-800 dark:text-cream font-sans">
         <Navbar />
         <main>{children}</main>
         <Footer />

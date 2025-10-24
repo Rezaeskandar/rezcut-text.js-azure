@@ -18,7 +18,7 @@ export async function POST(req: Request) {
   try {
     // Skicka mail till salongen
     await transporter.sendMail({
-      from: `"Noori's Barber" <${process.env.SMTP_USER}>`,
+      from: `"Rezcut" <${process.env.SMTP_USER}>`,
       to: "rezaeskandari.ammori@yahoo.com",
       subject: `Ny bokning från ${name}`,
       text: `Ny bokning via hemsidan:\n\nNamn: ${name}\nE-post: ${email}\nTelefon: ${phone}\nTjänst: ${service}\nBarberare: ${barber}\nDatum: ${date}\nTid: ${time}${
@@ -28,10 +28,10 @@ export async function POST(req: Request) {
 
     // Skicka bekräftelse till kund
     await transporter.sendMail({
-      from: `"Noori's Barber" <${process.env.SMTP_USER}>`,
+      from: `"Rezcut" <${process.env.SMTP_USER}>`,
       to: email,
-      subject: "Din bokning hos Noori's Barber är mottagen!",
-      text: `Hej ${name}!\n\nTack för din bokning hos Noori's Barber.\n\nVi har mottagit din bokning:\nTjänst: ${service}\nBarberare: ${barber}\nDatum: ${date}\nTid: ${time}\n\nVi återkommer med bekräftelse så snart som möjligt.\n\nVänliga hälsningar,\nNoori's Barber`,
+      subject: "Din bokning hos Rezcut är mottagen!",
+      text: `Hej ${name}!\n\nTack för din bokning hos Rezcut.\n\nVi har mottagit din bokning:\nTjänst: ${service}\nBarberare: ${barber}\nDatum: ${date}\nTid: ${time}\n\nVi återkommer med bekräftelse så snart som möjligt.\n\nVänliga hälsningar,\nRezcut`,
     });
 
     return NextResponse.json({ success: true });
