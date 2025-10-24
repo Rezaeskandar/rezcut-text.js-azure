@@ -1,16 +1,17 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
+import fs from "fs/promises";
 import path from "path";
 
 // Typ för bokningar
 interface Booking {
   id: number;
   name: string;
+  email: string;
+  phone?: string;
   service: string;
+  barber: string;
   date: string;
   time: string;
-  phone: string;
-  email: string;
   message?: string;
   handled: boolean;
   created: string;
@@ -19,12 +20,23 @@ interface Booking {
 // Sökväg till JSON-filen med bokningar
 const bookingsPath = path.join(process.cwd(), "data", "bookings.json");
 
+async function ensureDataFileExists() {
+  try {
+    await fs.access(bookingsPath);
+  } catch (error) {
+    // Filen eller mappen finns inte, skapa dem.
+    const dir = path.dirname(bookingsPath);
+    await fs.mkdir(dir, { recursive: true });
+    await fs.writeFile(bookingsPath, "[]", "utf-8");
+  }
+}
+
 // Hämta alla bokningar
 export async function GET() {
   try {
-    const bookings: Booking[] = fs.existsSync(bookingsPath)
-      ? JSON.parse(fs.readFileSync(bookingsPath, "utf8"))
-      : [];
+    await ensureDataFileExists(); // Se till att filen finns innan läsning
+    const fileData = await fs.readFile(bookingsPath, "utf-8");
+    const bookings: Booking[] = JSON.parse(fileData);
     return NextResponse.json(bookings);
   } catch {
     return NextResponse.json(
@@ -40,15 +52,15 @@ export async function PATCH(req: Request) {
   const { id, handled } = body as { id: number; handled: boolean };
 
   try {
-    let bookings: Booking[] = fs.existsSync(bookingsPath)
-      ? JSON.parse(fs.readFileSync(bookingsPath, "utf8"))
-      : [];
+    await ensureDataFileExists(); // Se till att filen finns innan läsning/skrivning
+    const fileData = await fs.readFile(bookingsPath, "utf-8");
+    let bookings: Booking[] = JSON.parse(fileData);
 
     bookings = bookings.map((b: Booking) =>
       b.id === id ? { ...b, handled } : b
     );
 
-    fs.writeFileSync(bookingsPath, JSON.stringify(bookings, null, 2));
+    await fs.writeFile(bookingsPath, JSON.stringify(bookings, null, 2));
 
     return NextResponse.json({ success: true });
   } catch {
