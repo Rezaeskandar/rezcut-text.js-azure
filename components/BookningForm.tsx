@@ -43,6 +43,11 @@ const generateTimeSlots = (date: Date | undefined) => {
   const isToday = format(date, "yyyy-MM-dd") === format(now, "yyyy-MM-dd");
   const dayOfWeek = date.getDay(); // 0=Söndag, 6=Lördag
 
+  // Check if the selected day is a working day
+  if (!workingDays.includes(dayOfWeek)) {
+    return [];
+  }
+
   let currentSlotStart = setMinutes(setHours(date, 0), 0); // Start from beginning of selected day
   const [startHour, startMinute] = startTime.split(":").map(Number);
   currentSlotStart = setHours(currentSlotStart, startHour);
@@ -80,7 +85,7 @@ const generateTimeSlots = (date: Date | undefined) => {
       return currentSlotStart < breakEnd && currentSlotEnd > breakStart;
     });
 
-    const isPast = isToday && currentSlotStart < now;
+    const isPast = isToday && currentSlotEnd < now;
 
     if (!isBreak && !isPast) {
       slots.push(format(currentSlotStart, "HH:mm"));
