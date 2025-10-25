@@ -1,10 +1,26 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import fs from "fs/promises";
+import path from "path";
+
+const bookingsPath = path.join(process.cwd(), "data", "bookings.json");
+
+async function ensureDataFileExists() {
+  try {
+    await fs.access(bookingsPath);
+  } catch (error) {
+    // Filen eller mappen finns inte, skapa dem.
+    const dir = path.dirname(bookingsPath);
+    await fs.mkdir(dir, { recursive: true });
+    await fs.writeFile(bookingsPath, "[]", "utf-8");
+  }
+}
 
 export async function POST(req: Request) {
   const body = await req.json();
   const { name, email, phone, service, barber, date, time, message } = body;
 
+  // --- E-posthantering (ingen ändring här) ---
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
@@ -16,6 +32,27 @@ export async function POST(req: Request) {
   });
 
   try {
+    // Spara till JSON-fil
+    await ensureDataFileExists();
+    const fileData = await fs.readFile(bookingsPath, "utf-8");
+    const bookings = JSON.parse(fileData);
+
+    const newBooking = {
+      id: Date.now(),
+      name,
+      email,
+      phone,
+      service,
+      barber,
+      date,
+      time,
+      message,
+      created: new Date().toISOString(),
+      handled: false,
+    };
+    bookings.push(newBooking);
+    await fs.writeFile(bookingsPath, JSON.stringify(bookings, null, 2));
+
     // Skicka mail till salongen
     await transporter.sendMail({
       from: `"Rezcut" <${process.env.SMTP_USER}>`,

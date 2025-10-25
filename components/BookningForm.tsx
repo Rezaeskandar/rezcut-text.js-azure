@@ -326,8 +326,7 @@ export default function BookingForm({
               <option value="Vem som helst">
                 Välj barberare (Vem som helst)
               </option>
-              <option value="Ahmad">Ahmad</option>
-              <option value="Farshad">Farshad</option>
+              <option value="Reza">Reza</option>
             </select>
             <select
               name="serviceId"
