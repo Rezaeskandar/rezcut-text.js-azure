@@ -35,5 +35,18 @@
     "message": "dfjh\n",
     "created": "2025-10-25T21:00:48.603Z",
     "handled": false
+  },
+  {
+    "id": 1761428959335,
+    "name": "Reza Eskandari",
+    "email": "rezaeskandari.ammori@yahoo.com",
+    "phone": "0761933282",
+    "service": "Studentklippning",
+    "barber": "Reza",
+    "date": "2025-10-27",
+    "time": "17:30",
+    "message": "på",
+    "created": "2025-10-25T21:49:19.335Z",
+    "handled": false
   }
 ]
