@@ -2,6 +2,20 @@ import { NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
 
+type Booking = {
+  id: number;
+  name: string;
+  email: string;
+  phone?: string;
+  service: string;
+  barber: string;
+  date: string;
+  time: string;
+  message?: string;
+  created: string;
+  handled: boolean;
+};
+
 const bookingsPath = path.join(process.cwd(), "data", "bookings.json");
 
 async function ensureDataFileExists() {
@@ -20,8 +34,8 @@ export async function GET() {
   try {
     await ensureDataFileExists();
     const fileData = await fs.readFile(bookingsPath, "utf-8");
-    const bookings = JSON.parse(fileData);
-    return NextResponse.json(bookings.sort((a: any, b: any) => b.id - a.id));
+    const bookings: Booking[] = JSON.parse(fileData);
+    return NextResponse.json(bookings.sort((a, b) => b.id - a.id));
   } catch (error) {
     console.error("Error reading bookings.json:", error);
     return NextResponse.json(
@@ -38,9 +52,9 @@ export async function PATCH(req: Request) {
   try {
     await ensureDataFileExists();
     const fileData = await fs.readFile(bookingsPath, "utf-8");
-    let bookings = JSON.parse(fileData);
+    const bookings: Booking[] = JSON.parse(fileData);
 
-    const bookingIndex = bookings.findIndex((b: any) => b.id === id);
+    const bookingIndex = bookings.findIndex((b) => b.id === id);
     if (bookingIndex === -1) {
       return NextResponse.json(
         { error: "Bokning hittades inte" },

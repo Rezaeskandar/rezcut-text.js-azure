@@ -19,7 +19,6 @@ type Booking = {
 function AdminContent() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchBookings() {
@@ -32,7 +31,7 @@ function AdminContent() {
         // Sortera bokningar med de senaste först
         setBookings(data.sort((a: Booking, b: Booking) => b.id - a.id));
       } catch (error) {
-        setError("Kunde inte ladda bokningar. Försök igen senare.");
+        console.error("Kunde inte ladda bokningar. Försök igen senare.", error);
       } finally {
         setLoading(false);
       }
@@ -66,10 +65,6 @@ function AdminContent() {
 
   if (loading) {
     return <div className="text-center p-8">Laddar bokningar...</div>;
-  }
-
-  if (error) {
-    return <div className="text-center p-8 text-red-500">{error}</div>;
   }
 
   return (

@@ -9,15 +9,6 @@ import { format, startOfToday, setHours, setMinutes } from "date-fns";
 import { sv } from "date-fns/locale"; // For Swedish locale in calendar
 import { availability } from "../data/availability"; // Import availability data
 
-type Availability = {
-  startTime: string;
-  endTime: string;
-  saturdayEndTime: string;
-  slotDurationMinutes: number;
-  workingDays: number[];
-  breakTimes: { start: string; end: string }[];
-};
-
 type FormState = {
   name: string;
   email: string;
