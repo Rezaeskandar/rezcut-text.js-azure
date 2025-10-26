@@ -104,7 +104,7 @@ function AvailabilityForm() {
   };
 
   if (loading && !availability) {
-    return <div className="text-center p-8">Laddar inställningar...</div>;
+    return <div className="text-center text-blue-400 p-8">Laddar inställningar...</div>;
   }
 
   if (!availability) {
@@ -333,7 +333,7 @@ export default function AvailabilityAdminPage() {
       </nav>
 
       <main className="max-w-4xl mx-auto py-12 px-4">
-        <h2 className="text-2xl font-bold mb-6">Hantera Öppettider</h2>
+        <h2 className="text-2xl text-black font-bold mb-6">Hantera Öppettider</h2>
         <AvailabilityForm />
       </main>
     </div>

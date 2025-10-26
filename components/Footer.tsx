@@ -53,9 +53,15 @@ export default function Footer() {
         {/* Opening Hours */}
         <div>
           <h3 className="text-gold font-bold mb-4">Öppettider</h3>
-          <p>Mån–Fre: 10:00–20:00</p>
-          <p>Lör: 10:00–15:00</p>
-          <p>Sön: Stängt</p>
+          <p className="text-gray-400">
+            Mina tider är flexibla. Se tillgänglighet i bokningskalendern.
+          </p>
+          <Link
+            href="/boking"
+            className="text-gold hover:underline mt-2 inline-block"
+          >
+            Boka tid här
+          </Link>
         </div>
       </div>
 

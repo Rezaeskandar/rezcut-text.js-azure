@@ -93,17 +93,16 @@ export default function ContactPage() {
             <h3 className="text-lg font-bold text-yellow-600 dark:text-gold mb-2">
               Öppettider
             </h3>
-            <ul className="space-y-1 text-gray-700 dark:text-gray-300">
-              <li>
-                <span className="mr-2">⏰</span> Mån–Fre: 10:00–20:00
-              </li>
-              <li>
-                <span className="mr-2">⏰</span> Lör: 10:00–15:00
-              </li>
-              <li>
-                <span className="mr-2">⏰</span> Sön: Stängt
-              </li>
-            </ul>
+            <p className="text-gray-700 dark:text-gray-300">
+              Mina öppettider är flexibla och styrs via bokningssystemet. Klicka
+              nedan för att se tillgängliga tider.
+            </p>
+            <Link
+              href="/boking"
+              className="text-gold hover:underline mt-2 inline-block font-semibold"
+            >
+              Se lediga tider
+            </Link>
           </div>
         </div>
 

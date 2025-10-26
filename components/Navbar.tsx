@@ -32,16 +32,10 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          {/* <span className="text-[#b2862d] text-2xl font-bold transition-transform duration-200 hover:scale-105">
-            ✂ SH-Cutz
-          </span> */}
-          <Image
-            src="/logo.png"
-            alt="Rezcut Logo"
-            width={64}
-            height={64}
-            className="transition-transform duration-200 hover:scale-105"
-          />
+          <span className="text-2xl font-bold text-[#b2862d] transition-transform duration-200 hover:scale-105">
+            Rezcut
+          </span>
+          <span className="text-xl text-white opacity-50">✂</span>
         </Link>
 
         {/* Desktop Menu */}
