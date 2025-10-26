@@ -17,8 +17,8 @@ const defaultAvailability = {
  * GET-funktion för att hämta nuvarande tillgänglighetsinställningar.
  */
 export async function GET() {
+  const container = getDbContainer();
   try {
-    const container = getDbContainer();
     const { resource: availability } = await container
       .item(AVAILABILITY_ID, AVAILABILITY_ID)
       .read();
