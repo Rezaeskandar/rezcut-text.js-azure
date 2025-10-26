@@ -324,7 +324,7 @@ export default function AvailabilityAdminPage() {
             Bokningar
           </a>
           <a
-            href="/admin/tider"
+            href="/tider"
             className="font-semibold text-yellow-600 dark:text-gold border-b-2 border-yellow-600 dark:border-gold pb-1"
           >
             Hantera Öppettider

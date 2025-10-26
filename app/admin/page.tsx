@@ -142,14 +142,26 @@ export default function AdminPage() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [error, setError] = useState("");
 
-  const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "";
-
-  function handleLogin(e: React.FormEvent<HTMLFormElement>) {
+  async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
-      setLoggedIn(true);
-    } else {
-      setError("Fel lösenord!");
+    setError("");
+
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setLoggedIn(true);
+      } else {
+        setError(data.error || "Fel lösenord!");
+      }
+    } catch {
+      setError("Kunde inte ansluta till servern. Försök igen.");
     }
   }
 

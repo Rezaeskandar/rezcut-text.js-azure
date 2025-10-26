@@ -84,7 +84,7 @@ export default function Navbar() {
                 </li>
                 <li>
                   <Link
-                    href="/admin/tider"
+                    href="/tider"
                     className="block px-4 py-2 text-sm text-white hover:bg-[#b2862d]/20"
                     onClick={() => setAdminMenuOpen(false)}
                   >
