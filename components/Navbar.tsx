@@ -13,6 +13,7 @@ const navLinks = [
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [adminMenuOpen, setAdminMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
@@ -60,6 +61,40 @@ export default function Navbar() {
 
         {/* Theme Toggle and Hamburger */}
         <div className="flex items-center gap-4">
+          {/* Admin Dropdown */}
+          <div className="hidden md:block relative">
+            <button
+              onClick={() => setAdminMenuOpen((prev) => !prev)}
+              className={`transition-colors duration-200 hover:text-[#b2862d] px-3 py-1 text-sm font-medium rounded-md ${
+                pathname.startsWith("/admin") ? "text-[#b2862d]" : "text-white"
+              }`}
+            >
+              Admin
+            </button>
+            {adminMenuOpen && (
+              <ul className="absolute top-full right-0 mt-2 w-48 bg-[#2a2a2a] rounded-lg shadow-lg py-2 z-10">
+                <li>
+                  <Link
+                    href="/admin"
+                    className="block px-4 py-2 text-sm text-white hover:bg-[#b2862d]/20"
+                    onClick={() => setAdminMenuOpen(false)}
+                  >
+                    Bokningar
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/admin/tider"
+                    className="block px-4 py-2 text-sm text-white hover:bg-[#b2862d]/20"
+                    onClick={() => setAdminMenuOpen(false)}
+                  >
+                    Hantera Tider
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </div>
+
           <ThemeToggle />
           <button
             className="md:hidden text-white text-3xl focus:outline-none"
@@ -93,6 +128,25 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
+          {/* Admin links for mobile */}
+          <li>
+            <Link
+              href="/admin"
+              className="block py-3 px-6 rounded-lg font-medium text-white transition-colors duration-200 hover:bg-[#b2862d]/20 hover:text-[#b2862d]"
+              onClick={() => setMenuOpen(false)}
+            >
+              Admin: Bokningar
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/admin/tider"
+              className="block py-3 px-6 rounded-lg font-medium text-white transition-colors duration-200 hover:bg-[#b2862d]/20 hover:text-[#b2862d]"
+              onClick={() => setMenuOpen(false)}
+            >
+              Admin: Tider
+            </Link>
+          </li>
         </ul>
       </div>
     </header>
