@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { container } from "../../lib/cosmos";
+import { getDbContainer } from "../../lib/cosmos";
 
 const AVAILABILITY_ID = "availability-settings";
 
@@ -18,6 +18,7 @@ const defaultAvailability = {
  */
 export async function GET() {
   try {
+    const container = getDbContainer();
     const { resource: availability } = await container
       .item(AVAILABILITY_ID, AVAILABILITY_ID)
       .read();
@@ -53,6 +54,7 @@ export async function GET() {
  */
 export async function POST(req: Request) {
   try {
+    const container = getDbContainer();
     const newSettings = await req.json();
     await container.items.upsert({ id: AVAILABILITY_ID, ...newSettings });
     return NextResponse.json({ success: true });

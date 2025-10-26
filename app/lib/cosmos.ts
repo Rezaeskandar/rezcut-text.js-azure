@@ -1,17 +1,26 @@
-import { CosmosClient } from "@azure/cosmos";
+import { CosmosClient, Container } from "@azure/cosmos";
 
-const connectionString = process.env.COSMOS_CONNECTION_STRING;
-const databaseId = "RezcutDB";
-const containerId = "Settings";
+let containerInstance: Container;
 
-if (!connectionString) {
-  throw new Error(
-    "Azure Cosmos DB connection string is not configured in environment variables."
-  );
+function getDbContainer(): Container {
+  if (containerInstance) {
+    return containerInstance;
+  }
+
+  const connectionString = process.env.COSMOS_CONNECTION_STRING;
+  const databaseId = "RezcutDB";
+  const containerId = "Settings";
+
+  if (!connectionString) {
+    throw new Error(
+      "Azure Cosmos DB connection string is not configured in environment variables."
+    );
+  }
+
+  const client = new CosmosClient(connectionString);
+  const database = client.database(databaseId);
+  containerInstance = database.container(containerId);
+
+  return containerInstance;
 }
-
-const client = new CosmosClient(connectionString);
-const database = client.database(databaseId);
-export const container = database.container(containerId);
-
-export default client;
+export { getDbContainer };
