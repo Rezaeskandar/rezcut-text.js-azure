@@ -73,6 +73,23 @@ function AdminContent() {
         <h1 className="text-3xl font-bold text-[#b2862d]">Rezcut Admin</h1>
       </header>
 
+      <nav className="bg-white dark:bg-gray-800 shadow-sm">
+        <div className="max-w-4xl mx-auto px-4 py-2 flex justify-center gap-6">
+          <a
+            href="/admin"
+            className="font-semibold text-yellow-600 dark:text-gold border-b-2 border-yellow-600 dark:border-gold pb-1"
+          >
+            Bokningar
+          </a>
+          <a
+            href="/admin/tider"
+            className="font-semibold text-gray-600 dark:text-gray-300 hover:text-yellow-600 dark:hover:text-gold transition-colors"
+          >
+            Hantera Öppettider
+          </a>
+        </div>
+      </nav>
+
       <main className="max-w-4xl mx-auto py-12 px-4">
         <h2 className="text-2xl font-bold mb-6">Bokningar</h2>
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">

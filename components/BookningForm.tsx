@@ -7,7 +7,15 @@ import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css"; // Import the default styles
 import { format, startOfToday, setHours, setMinutes } from "date-fns";
 import { sv } from "date-fns/locale"; // For Swedish locale in calendar
-import { availability } from "../data/availability"; // Import availability data
+
+type Availability = {
+  startTime: string;
+  endTime: string;
+  saturdayEndTime: string;
+  slotDurationMinutes: number;
+  workingDays: number[];
+  breakTimes: { start: string; end: string }[];
+};
 
 type FormState = {
   name: string;
@@ -20,8 +28,11 @@ type FormState = {
 };
 
 // Helper function to generate time slots based on availability
-const generateTimeSlots = (date: Date | undefined) => {
-  if (!date) return [];
+const generateTimeSlots = (
+  date: Date | undefined,
+  availability: Availability | null
+) => {
+  if (!date || !availability) return [];
 
   const slots = [];
   const {
@@ -45,13 +56,9 @@ const generateTimeSlots = (date: Date | undefined) => {
   currentSlotStart = setMinutes(currentSlotStart, startMinute);
 
   const endOfDayTime = setMinutes(setHours(date, 0), 0); // End of selected day
-  // Sätt en specifik sluttid för lördagar
-  let endTime = availability.endTime;
-  if (dayOfWeek === 6) {
-    // 6 är lördag
-    endTime = "15:00";
-  }
-  const [endHour, endMinute] = endTime.split(":").map(Number);
+  const effectiveEndTime =
+    dayOfWeek === 6 ? availability.saturdayEndTime : availability.endTime;
+  const [endHour, endMinute] = effectiveEndTime.split(":").map(Number);
   endOfDayTime.setHours(endHour, endMinute);
 
   while (currentSlotStart < endOfDayTime) {
@@ -104,6 +111,7 @@ export default function BookingForm({
   });
 
   const [selectedDay, setSelectedDay] = useState<Date | undefined>();
+  const [availability, setAvailability] = useState<Availability | null>(null);
   const [timeSlots, setTimeSlots] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{
@@ -112,11 +120,24 @@ export default function BookingForm({
   } | null>(null);
 
   useEffect(() => {
+    async function fetchAvailability() {
+      try {
+        const res = await fetch("/api/availability");
+        const data = await res.json();
+        setAvailability(data);
+      } catch (error) {
+        console.error("Kunde inte hämta tillgänglighet", error);
+      }
+    }
+    fetchAvailability();
+  }, []);
+
+  useEffect(() => {
     // Reset time when day changes
     setForm((prev) => ({ ...prev, time: "" }));
     // Regenerate time slots
-    setTimeSlots(generateTimeSlots(selectedDay));
-  }, [selectedDay]);
+    setTimeSlots(generateTimeSlots(selectedDay, availability));
+  }, [selectedDay, availability]);
 
   function handleChange(
     e: React.ChangeEvent<
@@ -203,7 +224,7 @@ export default function BookingForm({
   // Disable days that are not working days
   const disabledDays = [
     { before: startOfToday() }, // Inaktivera alla dagar före idag
-    (day: Date) => !availability.workingDays.includes(day.getDay()), // Inaktivera dagar som inte är arbetsdagar
+    (day: Date) => !availability?.workingDays.includes(day.getDay()), // Inaktivera dagar som inte är arbetsdagar
   ];
 
   return (

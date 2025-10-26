@@ -3,6 +3,20 @@ import nodemailer from "nodemailer";
 import fs from "fs/promises";
 import path from "path";
 
+type Booking = {
+  id: number;
+  name: string;
+  email: string;
+  phone?: string;
+  service: string;
+  barber: string;
+  date: string;
+  time: string;
+  message?: string;
+  created: string;
+  handled: boolean;
+};
+
 const bookingsPath = path.join(process.cwd(), "data", "bookings.json");
 
 async function ensureDataFileExists() {
@@ -19,7 +33,6 @@ async function ensureDataFileExists() {
 export async function POST(req: Request) {
   const body = await req.json();
   const { name, email, phone, service, barber, date, time, message } = body;
-
   // --- E-posthantering (ingen ändring här) ---
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -34,8 +47,6 @@ export async function POST(req: Request) {
   try {
     // Spara till JSON-fil
     await ensureDataFileExists();
-    const fileData = await fs.readFile(bookingsPath, "utf-8");
-    const bookings = JSON.parse(fileData);
 
     const newBooking = {
       id: Date.now(),
@@ -50,8 +61,20 @@ export async function POST(req: Request) {
       created: new Date().toISOString(),
       handled: false,
     };
+
+    // Läs befintlig data, lägg till ny bokning och skriv tillbaka.
+    // Detta är säkrare än att läsa och skriva om hela filen.
+    const fileData = await fs.readFile(bookingsPath, "utf-8");
+    const bookings: Booking[] = fileData ? JSON.parse(fileData) : [];
+
     bookings.push(newBooking);
-    await fs.writeFile(bookingsPath, JSON.stringify(bookings, null, 2));
+
+    // Skriv tillbaka hela arrayen för att behålla JSON-strukturen korrekt.
+    await fs.writeFile(
+      bookingsPath,
+      JSON.stringify(bookings, null, 2),
+      "utf-8"
+    );
 
     // Skicka mail till salongen
     await transporter.sendMail({
