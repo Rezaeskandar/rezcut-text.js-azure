@@ -54,7 +54,7 @@ function AdminContent() {
       if (!res.ok) {
         throw new Error("Kunde inte uppdatera status");
       }
-    } catch (error) {
+    } catch {
       // Återställ UI om anropet misslyckas
       alert("Kunde inte uppdatera status. Försök igen.");
       setBookings((prev) =>
@@ -64,7 +64,9 @@ function AdminContent() {
   }
 
   if (loading) {
-    return <div className="text-center text-amber-300 p-8">Laddar bokningar...</div>;
+    return (
+      <div className="text-center text-amber-300 p-8">Laddar bokningar...</div>
+    );
   }
 
   return (

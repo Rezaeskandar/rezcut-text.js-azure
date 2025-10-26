@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
-import Image from "next/image";
 
 const navLinks = [
   { href: "/", label: "Hem" },

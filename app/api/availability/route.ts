@@ -29,8 +29,13 @@ export async function GET() {
       await container.items.create(defaultAvailability);
       return NextResponse.json(defaultAvailability);
     }
-  } catch (error: any) {
-    if (error.code === 404) {
+  } catch (error: unknown) {
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "code" in error &&
+      error.code === 404
+    ) {
       // Om dokumentet inte finns (första gången), skapa det.
       await container.items.create(defaultAvailability);
       return NextResponse.json(defaultAvailability);
